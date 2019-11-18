@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
+import Search from "./Search.jsx";
 
 class UnconnectedApp extends Component {
   render = () => {
@@ -11,6 +12,9 @@ class UnconnectedApp extends Component {
         <Signup />
         <h1>Login here</h1>
         <Login />
+        <div>
+          <Search />
+        </div>
       </div>
     );
   };
