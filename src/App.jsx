@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
+import React, { Component } from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 
@@ -15,10 +15,10 @@ class UnconnectedApp extends Component {
     );
   };
 }
-let mapStatetoStore = state => {
+
+let mapStateToProps = state => {
   return { login: state.login };
 };
-
-let App = connect(mapStatetoStore)(UnconnectedApp);
+let App = connect(mapStateToProps)(UnconnectedApp);
 
 export default App;

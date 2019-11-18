@@ -28,8 +28,11 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "chokidar": "^3.0.0",
     "express": "^4.16.4",
+<<<<<<< HEAD
     "mongodb": "^3.3.4",
     "multer": "^1.4.2",
+=======
+>>>>>>> 55f41bbd3d9718413d606acbea426f665479b019
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
