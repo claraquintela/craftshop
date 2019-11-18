@@ -1,4 +1,4 @@
-import React, { component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class UnconnectedSignup extends Component {
