@@ -16,8 +16,7 @@ let url =
   "mongodb+srv://craft:Craft123@cluster0-71uur.mongodb.net/test?retryWrites=true&w=majority";
 
 MongoClient.connect(
-  url,
-  {
+  url, {
     useNewUrlParser: true
   },
   (err, db) => {
@@ -31,8 +30,7 @@ app.post("/signup", upload.none(), (req, res) => {
   console.log("signup", req.body);
   let name = req.body.username;
   let pwd = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -74,8 +72,7 @@ app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
   let name = req.body.username;
   let password = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -119,6 +116,65 @@ app.post("/login", upload.none(), (req, res) => {
 let generateId = () => {
   return "" + Math.floor(Math.random() * 100000000);
 };
+
+app.get("/search", upload.none(), (req, res) => {
+  let search = req.body.search;
+  dbo.collection("products").find({
+    title: search
+  }).toArray((err, item) => {
+    if (err) {
+      console.log("/search error", err);
+      res.send(
+        JSON.stringify({
+          success: false
+        })
+      );
+      return;
+    }
+    if (item.title !== search) {
+      res.send(
+        JSON.stringify({
+          success: false
+        })
+      );
+      return;
+    }
+    if (item.title.includes(search)) {
+      res.send(
+        JSON.stringify({
+          success: true
+        })
+      );
+      return;
+    }
+
+  })
+
+})
+
+app.post('/new-item', upload.single("uploadedFile"), (req, res) => {
+  console.log("request to /new-item. body: ", req.body)
+  let username = req.body.username;
+  let title = req.body.title
+  let description = req.body.description;
+  let price = req.body.price
+  let file = req.file
+  let frontendPath = '/uploads/' + file.filename
+  let fileType = file.mimetype.split("/")[0]
+  dbo.collection('posts').insertOne({
+    description: description,
+    frontendPath: frontendPath,
+    username: username,
+    fileType: fileType,
+    price: price,
+    title: title,
+
+  })
+  res.send(JSON.stringify({
+    success: true
+  }))
+})
+
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {

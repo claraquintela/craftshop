@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import "./app.css";
 import React, { Component } from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
