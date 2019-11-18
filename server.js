@@ -18,9 +18,7 @@ MongoClient.connect(url, {
   useNewUrlParser: true
 }, (err, db) => {
   dbo = db.db("project-board")
-})
-
-app.use("/", express.static("build")); // Needed for the HTML and JS files
+}) // Needed for the HTML and JS files
 app.use("/", express.static("public")); // Needed for local assets
 
 // Your endpoints go after this line
@@ -32,7 +30,7 @@ app.post('/signup', upload.none(), (req, res) => {
     username: name
   }, (err, user) => {
     if (err) {
-      console.log("/login error", err)
+      console.log("/signup error", err)
       res.send(JSON.stringify({
         success: false
       }))
