@@ -13,15 +13,13 @@ class UnconnectedSearch extends Component {
     let price = parseInt(evt.target.value);
     this.props.dispatch({ type: "maximum-price", price: price });
   };
-  handleSubmit = evt => {
+  handleSubmit = async evt => {
     evt.preventDefault();
-   let response = await fetch("/search")
-   let responseBody = await response.text()
-   let parsed = JSON.parse(responseBody)
-   this.props.dispatch({type: "searchQuery", products: parsed})
-   this.setState({query: "",
-    minPrice: "",
-    maxPrice: ""})
+    let response = await fetch("/search");
+    let responseBody = await response.text();
+    let parsed = JSON.parse(responseBody);
+    this.props.dispatch({ type: "searchQuery", products: parsed });
+    this.setState({ query: "", minPrice: "", maxPrice: "" });
   };
   render = () => {
     return (
