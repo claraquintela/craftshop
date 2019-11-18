@@ -15,9 +15,10 @@ class UnconnectedApp extends Component {
     );
   };
 }
-let mapStateToProps = state => {
-  return { login: state.loggedIn };
+let mapStatetoStore = state => {
+  return { login: state.login };
 };
-let App = connect(mapStateToProps)(UnconnectedApp);
+
+let App = connect(mapStatetoStore)(UnconnectedApp);
 
 export default App;
