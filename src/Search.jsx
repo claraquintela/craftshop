@@ -15,7 +15,9 @@ class UnconnectedSearch extends Component {
   };
   handleSubmit = async evt => {
     evt.preventDefault();
-    let response = await fetch("/search");
+    let data = new FormData();
+    data.append("search", this.props.searchQuery);
+    let response = await fetch("/search", { method: "POST", body: data });
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     this.props.dispatch({ type: "searchQuery", products: parsed });
@@ -24,7 +26,7 @@ class UnconnectedSearch extends Component {
   render = () => {
     return (
       <div>
-        <form onSubmit="handleSubmit">
+        <form onSubmit={this.handleSubmit}>
           <div>
             Search Query
             <input

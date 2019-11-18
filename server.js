@@ -117,11 +117,13 @@ let generateId = () => {
   return "" + Math.floor(Math.random() * 100000000);
 };
 
-app.get("/search", upload.none(), (req, res) => {
+app.post("/search", upload.none(), (req, res) => {
   let search = req.body.search;
   dbo.collection("products").find({
-    title: search
-  }).toArray((err, item) => {
+    title: {
+      $regex: ".*" + search + ".*"
+    }
+  }).toArray((err, items) => {
     if (err) {
       console.log("/search error", err);
       res.send(
@@ -131,22 +133,16 @@ app.get("/search", upload.none(), (req, res) => {
       );
       return;
     }
-    if (item.title !== search) {
-      res.send(
-        JSON.stringify({
-          success: false
-        })
-      );
-      return;
-    }
-    if (item.title.includes(search)) {
-      res.send(
-        JSON.stringify({
-          success: true
-        })
-      );
-      return;
-    }
+    console.log("Items found: ", items)
+
+    res.send(
+      JSON.stringify({
+        success: true,
+        items: items
+      })
+    );
+    return;
+
 
   })
 
