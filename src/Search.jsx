@@ -32,6 +32,7 @@ class UnconnectedSearch extends Component {
               onChange={this.onQueryChange}
               value={this.props.query}
             />
+            <input type="submit" value="search" />
           </div>
           <div>
             Minimum price
