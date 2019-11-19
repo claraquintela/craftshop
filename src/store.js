@@ -19,6 +19,10 @@ let reducer = (state, action) => {
   if (action.type === "set-products") {
     return { ...state, products: action.products };
   }
+  if (action.type === "search-results") {
+    return { ...state, searchResults: action.searchResults };
+  }
+
   return state;
 };
 
@@ -26,6 +30,7 @@ let store = createStore(
   reducer,
   {
     products: [],
+    searchResults: [],
     users: [],
     login: false,
     searchQuery: "",

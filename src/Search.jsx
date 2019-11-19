@@ -28,7 +28,10 @@ class UnconnectedSearch extends Component {
     console.log("search response body", responseBody);
     let parsed = JSON.parse(responseBody);
     console.log("search parsed", parsed);
-    this.props.dispatch({ type: "searchQuery", products: parsed });
+    this.props.dispatch({
+      type: "search-results",
+      searchResults: parsed.items
+    });
     this.setState({ query: "", minPrice: "", maxPrice: "" });
   };
   render = () => {
@@ -61,12 +64,20 @@ class UnconnectedSearch extends Component {
             />
           </div>
         </form>
+        <div>
+          <ul>
+            {this.props.searchResults.map(items => {
+              return <li>{items.title}</li>;
+            })}
+          </ul>
+        </div>
       </div>
     );
   };
 }
 let mapStateToProps = st => {
   return {
+    searchResults: st.searchResults,
     query: st.searchQuery,
     minPrice: st.min,
     maxPrice: st.max
