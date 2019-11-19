@@ -16,8 +16,7 @@ let url =
   "mongodb+srv://craft:Craft123@cluster0-71uur.mongodb.net/test?retryWrites=true&w=majority";
 
 MongoClient.connect(
-  url,
-  {
+  url, {
     useNewUrlParser: true
   },
   (err, db) => {
@@ -30,8 +29,7 @@ app.post("/signup", upload.none(), (req, res) => {
   console.log("signup", req.body);
   let name = req.body.username;
   let pwd = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -73,8 +71,7 @@ app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
   let name = req.body.username;
   let password = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -171,6 +168,21 @@ app.post("/new-item", upload.single("uploadedFile"), (req, res) => {
     })
   );
 });
+app.get("/allproducts", (req, res) => {
+  console.log("request to /allproducts")
+  dbo.collection('products').find({}).toArray((err, ps) => {
+    if (err) {
+      console.log("error", err)
+      res.send("fail")
+      return
+    }
+    console.log("products", ps)
+    res.send(JSON.stringify(ps))
+  })
+});
+
+
+
 
 // Your endpoints go before this line
 
