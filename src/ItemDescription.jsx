@@ -7,15 +7,11 @@ class UnconnectedItemDescription extends Component {
   render() {
     return (
       <div>
-        <img
-          height="300px"
-          width="400px"
-          src={this.props.products.imgLocation}
-        />
-        <h2>{this.props.products.title}</h2>
+        <img height="300px" width="400px" src={this.props.item.imgLocation} />
+        <h2>{this.props.item.title}</h2>
         <div>
           <b>Location:</b>
-          {this.props.products.location}
+          {this.props.item.location}
         </div>
         <div>
           <b>Seller:</b>
@@ -26,19 +22,19 @@ class UnconnectedItemDescription extends Component {
 
         <div>
           <b>Price:</b>
-          {this.props.products.price}
+          {this.props.item.price}
         </div>
         <div>
           <b>Remaining:</b>
-          {this.props.products.remaining}
+          {this.props.item.remaining}
         </div>
         <div>
           <b>Description of product:</b>
-          {this.props.products.description}
+          {this.props.item.description}
         </div>
         <div>
           <b>Item Reviews:</b>
-          {this.props.products.reviews}
+          {this.props.item.reviews}
         </div>
       </div>
     );

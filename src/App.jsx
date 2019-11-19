@@ -59,8 +59,10 @@ class UnconnectedApp extends Component {
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;
     let details = this.props.products.filter(item => {
-      return item.id === itemId;
+      console.log(item.id, itemId);
+      return item._id === itemId;
     });
+    console.log("details", details);
     return <ItemDescription item={details[0]} />;
   };
   renderUserPage = routerData => {
