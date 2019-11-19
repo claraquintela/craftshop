@@ -21,7 +21,7 @@ let reducer = (state, action) => {
 
 let store = createStore(
   reducer,
-  { products: [], login: false, searchQuery: "", minimum: 0, maximum: 1000000 },
+  { products: [], users: [], login: false, searchQuery: "", minimum: 0, maximum: 1000000 },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 export default store;

@@ -16,10 +16,18 @@ class UnconnectedSearch extends Component {
   handleSubmit = async evt => {
     evt.preventDefault();
     let data = new FormData();
-    data.append("search", this.props.searchQuery);
-    let response = await fetch("/search", { method: "POST", body: data });
+    data.append("search", this.props.query);
+    console.log("search", this.props.query, data);
+    let response = await fetch("/search", {
+      method: "POST",
+      body: data,
+      credentials: "include"
+    });
+    console.log(response);
     let responseBody = await response.text();
+    console.log(responseBody);
     let parsed = JSON.parse(responseBody);
+    console.log(parsed);
     this.props.dispatch({ type: "searchQuery", products: parsed });
     this.setState({ query: "", minPrice: "", maxPrice: "" });
   };
@@ -67,3 +75,6 @@ let mapStateToProps = st => {
 
 let Search = connect(mapStateToProps)(UnconnectedSearch);
 export default Search;
+
+//main page for css to define the background color, the font, etc
+//if you need to define position must be inside the component, example if login and signup to be small boxes in the top right corner and then position it
