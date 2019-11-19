@@ -19,6 +19,9 @@ let reducer = (state, action) => {
   if (action.type === "set-products") {
     return { ...state, products: action.products };
   }
+  if (action.type === "set-users") {
+    return { ...state, users: action.users };
+  }
   if (action.type === "search-results") {
     return { ...state, searchResults: action.searchResults };
   }

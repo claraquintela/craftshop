@@ -27,7 +27,21 @@ MongoClient.connect(
   }
 ); // Needed for the HTML and JS files
 app.use("/", express.static("public")); // Needed for local assets
-
+app.get("/allusers", (req, res) => {
+  console.log("request to /allusers");
+  dbo
+    .collection("users")
+    .find({})
+    .toArray((err, user) => {
+      if (err) {
+        console.log("err", err);
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      console.log("users", user);
+      res.send(JSON.stringify({ success: true, users: user }));
+    });
+});
 app.get("/allproducts", (req, res) => {
   console.log("request to /allproducts");
   dbo

@@ -15,8 +15,14 @@ class UnconnectedApp extends Component {
     let parsed = JSON.parse(responseBody);
     console.log(parsed);
     this.props.dispatch({ type: "set-products", products: parsed });
+    let userResponse = await fetch("/allusers");
+    let userResponseBody = await userResponse.text();
+    let userParsed = JSON.parse(userResponseBody);
+    console.log("user parsed", userParsed.users);
+    this.props.dispatch({ type: "set-users", users: userParsed.users });
   };
   renderMainPage = () => {
+    console.log("this.props.users", this.props.users);
     return (
       <div>
         <h1>Signup here</h1>
@@ -27,6 +33,7 @@ class UnconnectedApp extends Component {
           <Search />
         </div>
         <div>
+          Products:
           {this.props.products.map(item => {
             return (
               <div>
@@ -36,6 +43,7 @@ class UnconnectedApp extends Component {
           })}
         </div>
         <div>
+          Users:
           {this.props.users.map(user => {
             return (
               <div>
@@ -55,11 +63,11 @@ class UnconnectedApp extends Component {
     return <ItemDescription item={details[0]} />;
   };
   renderUserPage = routerData => {
-    let userId = routerdata.match.params.id;
-    let candidate = users.filter(user => {
+    let userId = routerData.match.params.id;
+    let candidate = this.props.users.filter(user => {
       return user.id === userId;
     });
-    return <User user={candidate[0]} />;
+    return <Users user={candidate[0]} />;
   };
   render = () => {
     return (
