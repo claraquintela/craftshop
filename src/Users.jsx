@@ -39,7 +39,7 @@ class unconnectedUsers extends Component {
     data.append("item description", this.state.description)
     data.append("item location", this.state.location)
     data.append("item img", this.props.img)
-    await fetch()
+    await fetch("/new-product", {method: "POST", body: data, credentials: "include"})
     this.setState({
       title: "",
       price: "",

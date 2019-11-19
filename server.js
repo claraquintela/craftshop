@@ -162,9 +162,10 @@ app.post("/search", upload.none(), (req, res) => {
     });
 });
 
-app.post("/new-item", upload.single("uploadedFile"), (req, res) => {
-  console.log("request to /new-item. body: ", req.body);
-  let username = req.body.username;
+app.post("/new-product", upload.single("img"), (req, res) => {
+  console.log("request to /new-product. body: ", req.body);
+  let sessionId = req.cookies.sid;
+  let username = sessions[sessionId];
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;

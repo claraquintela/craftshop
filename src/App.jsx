@@ -35,6 +35,15 @@ class UnconnectedApp extends Component {
             );
           })}
         </div>
+        <div>
+          {this.props.users.map(user => {
+            return (
+              <div>
+                <Link to={"/userPage/" + user._id}>{user.username}</Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   };
@@ -64,7 +73,7 @@ class UnconnectedApp extends Component {
           />
           <Route
             exact={true}
-            path="/userPage/:id"
+            path="/userPage/:_id"
             render={this.renderUserPage}
           />
         </div>
@@ -78,7 +87,7 @@ let mapStateToProps = state => {
   return {
     login: state.login,
     products: state.products,
-    users: state.user,
+    users: state.users,
     reviews: state.reviews
   };
 };

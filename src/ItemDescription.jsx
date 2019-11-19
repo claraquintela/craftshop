@@ -12,14 +12,14 @@ class UnconnectedItemDescription extends Component {
           width="400px"
           src={this.props.products.imgLocation}
         />
-        <h2>{this.props.products.name}</h2>
+        <h2>{this.props.products.title}</h2>
         <div>
           <b>Location:</b>
           {this.props.products.location}
         </div>
         <div>
           <b>Seller:</b>
-          <Link to={"/users" + this.props.users.id}>
+          <Link to={"/users/" + this.props.users.id}>
             {this.props.users.name}
           </Link>
         </div>
@@ -38,7 +38,7 @@ class UnconnectedItemDescription extends Component {
         </div>
         <div>
           <b>Item Reviews:</b>
-          {this.props.reviews}
+          {this.props.products.reviews}
         </div>
       </div>
     );
