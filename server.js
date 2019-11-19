@@ -115,46 +115,52 @@ app.post("/login", upload.none(), (req, res) => {
 let generateId = () => {
   return "" + Math.floor(Math.random() * 100000000);
 };
-app.post("/search", upload.none(), (req, res) => {
-  console.log("hit", req.body.search);
 
+app.get("/search", upload.none(), (req, res) => {
   let search = req.body.search;
-  dbo
-    .collection("products")
-    .find({
-      title: new RegExp(search)
-    })
-    .toArray((err, items) => {
-      if (err) {
-        console.log("/search error", err);
-        res.send(
-          JSON.stringify({
-            success: false
-          })
-        );
-        return;
-      }
-      console.log("Items found: ", items);
-
+  dbo.collection("products").find({
+    title: search
+  }).toArray((err, item) => {
+    if (err) {
+      console.log("/search error", err);
       res.send(
         JSON.stringify({
-          success: true,
-          items: items
+          success: false
         })
       );
       return;
-    });
-});
-app.post("/new-item", upload.single("uploadedFile"), (req, res) => {
-  console.log("request to /new-item. body: ", req.body);
+    }
+    if (item.title !== search) {
+      res.send(
+        JSON.stringify({
+          success: false
+        })
+      );
+      return;
+    }
+    if (item.title.includes(search)) {
+      res.send(
+        JSON.stringify({
+          success: true
+        })
+      );
+      return;
+    }
+
+  })
+
+})
+
+app.post('/new-item', upload.single("uploadedFile"), (req, res) => {
+  console.log("request to /new-item. body: ", req.body)
   let username = req.body.username;
-  let title = req.body.title;
+  let title = req.body.title
   let description = req.body.description;
-  let price = req.body.price;
-  let file = req.file;
-  let frontendPath = "/uploads/" + file.filename;
-  let fileType = file.mimetype.split("/")[0];
-  dbo.collection("posts").insertOne({
+  let price = req.body.price
+  let file = req.file
+  let frontendPath = '/uploads/' + file.filename
+  let fileType = file.mimetype.split("/")[0]
+  dbo.collection('posts').insertOne({
     description: description,
     frontendPath: frontendPath,
     username: username,
@@ -180,9 +186,9 @@ app.get("/allproducts", (req, res) => {
     res.send(JSON.stringify(ps))
   })
 });
-
-
-
+res.send(JSON.stringify({
+  success: true
+}))
 
 // Your endpoints go before this line
 
