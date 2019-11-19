@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import "./app.css";
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import Search from "./Search.jsx";
@@ -12,6 +13,7 @@ class UnconnectedApp extends Component {
     let response = await fetch("/allproducts");
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
+    console.log(parsed);
     this.props.dispatch({ type: "set-products", products: parsed });
   };
   renderMainPage = () => {
@@ -26,15 +28,19 @@ class UnconnectedApp extends Component {
         </div>
         <div>
           {this.props.products.map(item => {
-            <Link to={"/itemDescription/" + item.itemId}>{item.title}</Link>;
+            return (
+              <div>
+                <Link to={"/itemDescription/" + item._id}>{item.title}</Link>
+              </div>
+            );
           })}
         </div>
       </div>
     );
   };
   renderItemDescriptionPage = routerData => {
-    let itemId = routerData.match.params.itemId;
-    let details = products.filter(item => {
+    let itemId = routerData.match.params._id;
+    let details = this.props.products.filter(item => {
       return item.id === itemId;
     });
     return <ItemDescription item={details[0]} />;
@@ -53,7 +59,7 @@ class UnconnectedApp extends Component {
           <Route exact={true} path="/" render={this.renderMainPage} />
           <Route
             exact={true}
-            path="/itemDescription/:itemId"
+            path="/itemDescription/:_id"
             render={this.renderItemDescriptionPage}
           />
           <Route
@@ -68,6 +74,7 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
+  console.log(state);
   return {
     login: state.login,
     products: state.products,

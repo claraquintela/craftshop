@@ -23,11 +23,11 @@ class UnconnectedSearch extends Component {
       body: data,
       credentials: "include"
     });
-    console.log(response);
+    console.log("search response", response);
     let responseBody = await response.text();
-    console.log(responseBody);
+    console.log("search response body", responseBody);
     let parsed = JSON.parse(responseBody);
-    console.log(parsed);
+    console.log("search parsed", parsed);
     this.props.dispatch({ type: "searchQuery", products: parsed });
     this.setState({ query: "", minPrice: "", maxPrice: "" });
   };
