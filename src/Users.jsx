@@ -4,50 +4,54 @@ import { Link } from "react-router-dom";
 
 class unconnectedUsers extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       title: "",
       price: "",
       description: "",
       location: "",
-      img: "",
-    }
+      img: ""
+    };
   }
   titleHandler = evt => {
-    this.setState({title: evt.target.value});
+    this.setState({ title: evt.target.value });
   };
 
   priceHandler = evt => {
-    this.setState({price: evt.target.value})
+    this.setState({ price: evt.target.value });
   };
   descriptionHandler = evt => {
-    this.setState({description: evt.target.value})
+    this.setState({ description: evt.target.value });
   };
   locationHandler = evt => {
-    this.setState({location: evt.target.value})
+    this.setState({ location: evt.target.value });
   };
   imgHandler = evt => {
-    this.setState({img: evt.target.value})
+    this.setState({ img: evt.target.value });
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-    console.log("product form submitted")
-    let data = new FormData()
-    data.append("item title", this.state.title)
-    data.append("item price", this.state.price)
-    data.append("item description", this.state.description)
-    data.append("item location", this.state.location)
-    data.append("item img", this.props.img)
-    await fetch("/new-product", {method: "POST", body: data, credentials: "include"})
+    console.log("product form submitted");
+    let data = new FormData();
+    data.append("item title", this.state.title);
+    data.append("item price", this.state.price);
+    data.append("item description", this.state.description);
+    data.append("item location", this.state.location);
+    data.append("item img", this.props.img);
+    fetch("/new-product", {
+      method: "POST",
+      body: data,
+      credentials: "include"
+    });
     this.setState({
       title: "",
       price: "",
       description: "",
       location: "",
-      img: "",
-    })
-    return
+      img: ""
+    });
+    return;
   };
   render() {
     return (

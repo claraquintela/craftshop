@@ -7,6 +7,7 @@ import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import Search from "./Search.jsx";
 import ItemDescription from "./ItemDescription.jsx";
+import Users from "./Users.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {

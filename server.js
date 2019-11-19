@@ -171,7 +171,7 @@ app.post("/search", upload.none(), (req, res) => {
         return;
       }
       console.log("find items", items);
-      res.send(JSON.stringify({ succes: true, items: items }));
+      res.send(JSON.stringify({ success: true, items: items }));
       return;
     });
 });
