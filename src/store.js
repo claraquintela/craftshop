@@ -16,12 +16,23 @@ let reducer = (state, action) => {
   if (action.type === "maximum-price") {
     return { ...state, maximum: action.price };
   }
+  if (action.type === "set-products") {
+    return { ...state, products: action.products };
+  }
   return state;
 };
 
 let store = createStore(
   reducer,
-  { products: [], users: [], login: false, searchQuery: "", minimum: 0, maximum: 1000000 },
+  {
+    products: [],
+    users: [],
+    login: false,
+    searchQuery: "",
+    minimum: 0,
+    maximum: 1000000,
+    reviews: []
+  },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 export default store;
