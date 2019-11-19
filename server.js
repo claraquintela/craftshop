@@ -177,7 +177,7 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
-  console.log("request to /new-product. body: ", req.body);
+  console.log("request to /new-product. body: ", req.body, req.cookies);
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
   let title = req.body.title;
@@ -186,7 +186,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   let file = req.file;
   let frontendPath = "/uploads/" + file.filename;
   let fileType = file.mimetype.split("/")[0];
-  dbo.collection("posts").insertOne({
+  dbo.collection("products").insertOne({
     description: description,
     frontendPath: frontendPath,
     username: username,

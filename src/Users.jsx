@@ -30,7 +30,7 @@ class unconnectedUsers extends Component {
     this.setState({ img: evt.target.value });
   };
 
-  handleSubmit = evt => {
+  submitHandler = evt => {
     evt.preventDefault();
     console.log("product form submitted");
     let data = new FormData();
