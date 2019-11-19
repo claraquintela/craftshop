@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./login.css";
 import { connect } from "react-redux";
 
 class UnconnectedLogin extends Component {
@@ -42,11 +43,15 @@ class UnconnectedLogin extends Component {
   };
   render = () => {
     return (
-      <form onSubmit={this.handleSubmit}>
-        Username
-        <input type="text" onChange={this.handleUsernameChange} />
-        Password
-        <input type="text" onChange={this.handlePasswordChange} />
+      <form onSubmit={this.handleSubmit} className="login">
+        <div className="login-child">
+          Username
+          <input type="text" onChange={this.handleUsernameChange} />
+        </div>
+        <div>
+          Password
+          <input type="text" onChange={this.handlePasswordChange} />
+        </div>
         <input type="submit" />
       </form>
     );

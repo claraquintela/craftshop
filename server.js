@@ -117,36 +117,8 @@ let generateId = () => {
   return "" + Math.floor(Math.random() * 100000000);
 };
 
-app.post("/search", upload.none(), (req, res) => {
-  let search = req.body.search;
-  dbo.collection("products").find({
-    title: {
-      $regex: ".*" + search + ".*"
-    }
-  }).toArray((err, items) => {
-    if (err) {
-      console.log("/search error", err);
-      res.send(
-        JSON.stringify({
-          success: false
-        })
-      );
-      return;
-    }
-    console.log("Items found: ", items)
-
-    res.send(
-      JSON.stringify({
-        success: true,
-        items: items
-      })
-    );
-    return;
 
 
-  })
-
-})
 
 app.post('/new-item', upload.single("uploadedFile"), (req, res) => {
   console.log("request to /new-item. body: ", req.body)
@@ -180,4 +152,30 @@ app.all("/*", (req, res, next) => {
 
 app.listen(4000, "0.0.0.0", () => {
   console.log("Server running on port 4000");
+});
+app.post("/search", upload.none(), (req, res) => {
+  let search = req.body.search;
+  dbo.collection("products").find({
+      title: new RegExp(search)
+    }),
+    (err, items) => {
+      if (err) {
+        console.log("/search error", err);
+        res.send(
+          JSON.stringify({
+            success: false
+          })
+        );
+        return;
+      }
+      console.log("Items found: ", items)
+
+      res.send(
+        JSON.stringify({
+          success: true,
+          items: items
+        })
+      );
+      return;
+    }
 });
