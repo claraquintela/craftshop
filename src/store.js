@@ -40,7 +40,8 @@ let store = createStore(
     searchQuery: "",
     minimum: 0,
     maximum: 1000000,
-    reviews: []
+    reviews: [],
+    cart: []
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
