@@ -21,8 +21,7 @@ let url =
   "mongodb+srv://craft:Craft123@cluster0-71uur.mongodb.net/test?retryWrites=true&w=majority";
 
 MongoClient.connect(
-  url,
-  {
+  url, {
     useNewUrlParser: true
   },
   (err, db) => {
@@ -38,11 +37,15 @@ app.get("/allusers", (req, res) => {
     .toArray((err, user) => {
       if (err) {
         console.log("err", err);
-        res.send(JSON.stringify({ success: false }));
+        res.send(JSON.stringify({
+          success: false
+        }));
         return;
       }
       console.log("users", user);
-      res.send(JSON.stringify({ user }));
+      res.send(JSON.stringify({
+        user
+      }));
     });
 });
 app.get("/allproducts", (req, res) => {
@@ -53,7 +56,9 @@ app.get("/allproducts", (req, res) => {
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
-        res.send(JSON.stringify({ success: false }));
+        res.send(JSON.stringify({
+          success: false
+        }));
         return;
       }
       console.log("products", ps);
@@ -65,8 +70,7 @@ app.post("/signup", upload.none(), (req, res) => {
   console.log("signup", req.body);
   let name = req.body.username;
   let pwd = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -108,8 +112,7 @@ app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
   let name = req.body.username;
   let password = req.body.password;
-  dbo.collection("users").findOne(
-    {
+  dbo.collection("users").findOne({
       username: name
     },
     (err, user) => {
@@ -161,7 +164,10 @@ app.post("/search", upload.none(), (req, res) => {
   dbo
     .collection("products")
     .find({
-      title: { $regex: new RegExp(search), $options: "?i" }
+      title: {
+        $regex: new RegExp(search),
+        $options: "?i"
+      }
     })
     .toArray((err, items) => {
       if (err) {
@@ -174,7 +180,10 @@ app.post("/search", upload.none(), (req, res) => {
         return;
       }
       console.log("find items", items);
-      res.send(JSON.stringify({ success: true, items: items }));
+      res.send(JSON.stringify({
+        success: true,
+        items: items
+      }));
       return;
     });
 });
@@ -205,6 +214,19 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   );
   return;
 });
+app.get("/allproducts", (req, res) => {
+  console.log("request to /allproducts")
+  dbo.collection('products').find({}).toArray((err, ps) => {
+    if (err) {
+      console.log("error", err)
+      res.send("fail")
+      return
+    }
+    console.log("products", ps)
+    res.send(JSON.stringify(ps))
+  })
+});
+
 
 // Your endpoints go before this line
 

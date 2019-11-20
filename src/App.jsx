@@ -9,6 +9,7 @@ import Search from "./Search.jsx";
 import ItemDescription from "./ItemDescription.jsx";
 import Users from "./Users.jsx";
 import AddToCart from "./AddToCart.jsx";
+import TopBar from "./TopBar.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -94,6 +95,7 @@ class UnconnectedApp extends Component {
     return (
       <BrowserRouter>
         <div>
+          <TopBar />
           <Route exact={true} path="/" render={this.renderMainPage} />
           <Route exact={true} path="/signup" render={this.renderSignup} />
           <Route exact={true} path="/login" render={this.renderLogin} />
