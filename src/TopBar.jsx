@@ -7,15 +7,17 @@ import Search from "./Search.jsx";
 class UnconnectedTopBar extends Component {
   render = () => {
     return (
-      <div>
-        <Link className="link" to="/">
-          <img
-            src="http://claraquintela.com/wp-content/uploads/2019/11/circle-cropped-1.png"
-            align="left"
-            height="150px"
-            className="topbar-image"
-          />
-        </Link>
+      <div className="container-topbar">
+        <div>
+          <Link className="link" to="/">
+            <img
+              src="http://claraquintela.com/wp-content/uploads/2019/11/circle-cropped-1.png"
+              align="left"
+              height="200px"
+              className="topbar-image"
+            />
+          </Link>
+        </div>
 
         <div className="navigationBar">
           <Search />
