@@ -180,7 +180,11 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
+<<<<<<< HEAD
   console.log("request to /new-product. body: ", req.body, req.file);
+=======
+  console.log("request to /new-product. body: ", req.body, req.cookies);
+>>>>>>> 1bf02f3ee06ffd96cc2b1251991b9fef40c9a2f5
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
   console.log("username", username);
