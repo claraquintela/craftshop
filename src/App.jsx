@@ -19,8 +19,8 @@ class UnconnectedApp extends Component {
     let userResponse = await fetch("/allusers");
     let userResponseBody = await userResponse.text();
     let userParsed = JSON.parse(userResponseBody);
-    console.log("user parsed", userParsed.users);
-    this.props.dispatch({ type: "set-users", users: userParsed.users });
+    console.log("user parsed", userParsed);
+    this.props.dispatch({ type: "set-users", users: userParsed });
   };
   renderMainPage = () => {
     console.log("this.props.users", this.props.users);
@@ -52,7 +52,7 @@ class UnconnectedApp extends Component {
               </div>
             );
           })}
-        </div>
+        </div> 
       </div>
     );
   };
@@ -66,11 +66,14 @@ class UnconnectedApp extends Component {
     return <ItemDescription item={details[0]} />;
   };
   renderUserPage = routerData => {
-    let userId = routerData.match.params.id;
+    let userId = routerData.match.params._id;
+    console.log("user id", userId);
     let candidate = this.props.users.filter(user => {
-      return user.id === userId;
+      console.log("user._id", user._id);
+      return user._id === userId;
     });
-    return <Users user={candidate[0]} />;
+    console.log("candidate", candidate);
+    return <Users user={candidate} />;
   };
   render = () => {
     return (

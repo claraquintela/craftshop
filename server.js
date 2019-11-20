@@ -4,10 +4,13 @@ let MongoClient = require("mongodb").MongoClient;
 let ObjectID = require("mongodb").ObjectID;
 let reloadMagic = require("./reload-magic.js");
 let multer = require("multer");
-let sessions = {};
+
 let upload = multer({
   dest: __dirname + "/uploads/"
 });
+let sessions = {};
+let cookieParser = require("cookie-parser");
+app.use(cookieParser());
 reloadMagic(app);
 
 app.use("/", express.static("build"));
@@ -39,7 +42,7 @@ app.get("/allusers", (req, res) => {
         return;
       }
       console.log("users", user);
-      res.send(JSON.stringify({ success: true, users: user }));
+      res.send(JSON.stringify({ user }));
     });
 });
 app.get("/allproducts", (req, res) => {
@@ -177,20 +180,21 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
-  console.log("request to /new-product. body: ", req.body);
+  console.log("request to /new-product. body: ", req.body, req.file);
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
+  console.log("username", username);
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;
   let file = req.file;
   let frontendPath = "/uploads/" + file.filename;
   let fileType = file.mimetype.split("/")[0];
-  dbo.collection("posts").insertOne({
+  dbo.collection("products").insertOne({
     description: description,
     frontendPath: frontendPath,
     username: username,
-    fileType: fileType,
+    img: fileType,
     price: price,
     title: title
   });
@@ -199,6 +203,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
       success: true
     })
   );
+  return;
 });
 
 // Your endpoints go before this line
