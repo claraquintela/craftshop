@@ -10,6 +10,7 @@ import ItemDescription from "./ItemDescription.jsx";
 import Users from "./Users.jsx";
 import AddToCart from "./AddToCart.jsx";
 import TopBar from "./TopBar.jsx";
+import NewProduct from "./NewProduct.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -61,6 +62,12 @@ class UnconnectedApp extends Component {
   };
   renderLogin = () => {
     return <Login />;
+  };
+  renderNewProduct = () => {
+    return <NewProduct />;
+  };
+  renderAddToCart = () => {
+    return <AddToCart />;
   };
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;

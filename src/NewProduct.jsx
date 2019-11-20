@@ -2,55 +2,51 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class UnconnectedNewProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      price: "",
-      description: "",
-      location: "",
-      img: undefined
-    };
-  }
   titleHandler = evt => {
-    this.setState({ title: evt.target.value });
+    console.log("title of new product", evt.target.value);
+    this.props.dispatch({ type: "new-title", title: evt.target.value });
   };
   priceHandler = evt => {
-    this.setState({ price: evt.target.value });
+    console.log("price of new product", evt.target.number);
+    this.props.dispatch({ type: "new-price", price: evt.target.number });
   };
   descriptionHandler = evt => {
-    this.setState({ description: evt.target.value });
+    console.log("description of new product", evt.target.value);
+    this.props.dispatch({
+      type: "new-description",
+      description: evt.target.value
+    });
   };
   locationHandler = evt => {
-    this.setState({ location: evt.target.value });
+    console.log("location of new product", evt.target.value);
+    this.props.dispatch({
+      type: "new-location",
+      location: evt.target.value
+    });
   };
   imgHandler = evt => {
-    this.setState({ img: evt.target.img[0] });
+    console.log("img of new product", evt.target.file);
+    this.props.dispatch({ type: "new-img", img: evt.target.file[0] });
   };
   submitHandler = evt => {
     evt.preventDefault();
-    if (this.state.img === undefined) {
+    console.log(this.props.img);
+    if (this.props.img === undefined) {
       alert("Please add photo to sell your product");
     }
     console.log("product form submitted");
     let data = new FormData();
-    data.append("item title", this.state.title);
-    data.append("item price", this.state.price);
-    data.append("item description", this.state.description);
-    data.append("item location", this.state.location);
-    data.append("item img", this.state.img);
+    data.append("item title", this.props.title);
+    data.append("item price", this.props.price);
+    data.append("item description", this.props.description);
+    data.append("item location", this.props.location);
+    data.append("item img", this.props.img);
     fetch("/new-product", {
       method: "POST",
       body: data,
       credentials: "include"
     });
-    this.setState({
-      title: "",
-      price: "",
-      description: "",
-      location: "",
-      img: ""
-    });
+
     return;
   };
   render() {
@@ -58,41 +54,56 @@ class UnconnectedNewProduct extends Component {
     return (
       <div>
         Sell Products:
-        <form
-          onSubmit={this.submitHandler}
-          action="/image"
-          method="POST"
-          enctype="multipart/form-data"
-        >
+        <form onSubmit={this.submitHandler}>
           <div>
             Item title:
-            <input type="text" onChange={this.titleHandler} />
+            <input
+              type="text"
+              onChange={this.titleHandler}
+              value={this.props.title}
+            />
           </div>
           Item Price:
-          <input type="number" onChange={this.priceHandler} />
+          <input
+            type="number"
+            onChange={this.priceHandler}
+            value={this.props.price}
+          />
           <div>
             Item description:
-            <input type="text" onChange={this.descriptionHandler} />
+            <input
+              type="text"
+              onChange={this.descriptionHandler}
+              value={this.props.description}
+            />
           </div>
           <div>
             Location of item:
-            <input type="text" onChange={this.locationHandler} />
+            <input
+              type="text"
+              onChange={this.locationHandler}
+              value={this.props.location}
+            />
           </div>
           <div>
             Add an image:
-            <input
-              type="file"
-              onChange={this.imgHandler}
-              name="picture"
-              accept="/images/*"
-            />
+            <input type="file" onChange={this.imgHandler} />
+            <input type="submit" />
           </div>
-          <input type="submit" />
         </form>
       </div>
     );
   }
 }
-let NewProduct = connect()(UnconnectedNewProduct);
+let mapStateToProps = st => {
+  return {
+    title: st.title,
+    price: st.price,
+    location: st.location,
+    description: st.description,
+    img: st.img
+  };
+};
+let NewProduct = connect(mapStateToProps)(UnconnectedNewProduct);
 
 export default NewProduct;

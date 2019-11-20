@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class unconnectedCart extends Component {
-  render = () => {
+class UnconnectedCart extends Component {
+  render() {
     let cartItems = this.props.items.map(itemId => {
       return findItem(itemId);
     });
@@ -15,7 +15,7 @@ class unconnectedCart extends Component {
         <div>{itemsAsElements}</div>
       </div>
     );
-  };
+  }
 }
 let mapStateToProps = st => {
   return {
@@ -23,6 +23,6 @@ let mapStateToProps = st => {
   };
 };
 
-let Cart = connect(mapStateToProps)(unconnectedCart);
+let Cart = connect(mapStateToProps)(UnconnectedCart);
 
 export default Cart;
