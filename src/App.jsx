@@ -67,7 +67,7 @@ class UnconnectedApp extends Component {
     return <NewProduct />;
   };
   renderAddToCart = () => {
-    return <AddToCart />;
+    return <Cart />;
   };
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;

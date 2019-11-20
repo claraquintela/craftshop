@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class UnconnectedCart extends Component {
-  render() {
-    let cartItems = this.props.items.map(itemId => {
-      return findItem(itemId);
-    });
-    let itemsAsElements = cartItems.map(item => {
-      return <div>{item.title}</div>;
-    });
+  render = () => {
     return (
       <div>
-        This is what is in your cart:
-        <div>{itemsAsElements}</div>
+        These are the items in your cart:
+        {this.props.cart.map(items => (
+          <div>{items}</div>
+        ))}
       </div>
     );
-  }
+  };
 }
 let mapStateToProps = st => {
   return {

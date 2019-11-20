@@ -44,6 +44,9 @@ let reducer = (state, action) => {
   if (action.type === "newproduct-success") {
     return { ...state, newProductUpload: true };
   }
+  if (action.type === "addedToCart") {
+    return { ...state, cart: state.cart.concat(action.added) };
+  }
 
   return state;
 };
