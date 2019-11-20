@@ -26,9 +26,29 @@ let reducer = (state, action) => {
   if (action.type === "search-results") {
     return { ...state, searchResults: action.searchResults };
   }
+<<<<<<< HEAD
   if (action.type === "addedToCart") {
     console.log("reducer hit for add to cart");
     return { ...state, cart: state.cart.concat(action.added) };
+=======
+  if (action.type === "new-title") {
+    return { ...state, title: action.title };
+  }
+  if (action.type === "new-description") {
+    return { ...state, description: action.description };
+  }
+  if (action.type === "new-location") {
+    return { ...state, location: action.location };
+  }
+  if (action.type === "new-price") {
+    return { ...state, price: action.price };
+  }
+  if (action.type === "new-img") {
+    return { ...state, img: action.img };
+  }
+  if (action.type === "newproduct-success") {
+    return { ...state, newProductUpload: true };
+>>>>>>> 6a2f10d337efb2b406d1face1f4bf251f4d94894
   }
 
   return state;
@@ -45,7 +65,13 @@ let store = createStore(
     minimum: 0,
     maximum: 1000000,
     reviews: [],
-    cart: []
+    cart: [],
+    title: "",
+    price: "",
+    location: "",
+    description: "",
+    img: null,
+    newProductUpload: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
