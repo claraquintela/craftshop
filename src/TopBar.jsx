@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./topbar.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Search from "./Search.jsx";
 
 class UnconnectedTopBar extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class UnconnectedTopBar extends Component {
               height="200px"
             />
           </Link>
+          <Search />
           <section class="topbar-left">
             <Link className="link" to="/login">
               <img

@@ -29,15 +29,6 @@ class UnconnectedApp extends Component {
     return (
       <div>
         <div>
-          <Link to={"/signup"}>Signup</Link>
-        </div>
-        <div>
-          <Link to={"/login"}>Login</Link>
-        </div>
-        <div>
-          <Search />
-        </div>
-        <div>
           Products:
           {this.props.products.map(item => {
             return (
