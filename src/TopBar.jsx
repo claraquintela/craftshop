@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./topbar.css";
 import { connect } from "react-redux";
 
-class UnconnectedSignup extends Component {
+class UnconnectedTopBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,22 +35,29 @@ class UnconnectedSignup extends Component {
   };
   render = () => {
     return (
-      <TopAppBar
-        title="Crafty People"
-        prominent
-        dense
-        navigationIcon={
-          <MaterialIcon icon="menu" onClick={() => console.log("click")} />
-        }
-        actionItems={[
-          <MaterialIcon icon="file_download" />,
-          <MaterialIcon icon="print" />,
-          <MaterialIcon icon="bookmark" />
-        ]}
-      />
+      <div class="navigationBar">
+        <div class="topbar">
+          <section class="topbar right">
+            <img src="public/logo.png">
+            <button class="topbar menu">menu</button>
+            <span class="topbar-title">Crafty People</span>{" "}
+        </section>
+          <section class="topbar left">
+            <button class="icon" aria-label="Download">
+              file_download
+            </button>
+            <button class="icon" aria-label="Print this page">
+              print
+            </button>
+            <button class="icon" aria-label="Bookmark this page">
+              bookmark
+            </button>
+          </section>
+        </div>
+      </div>
     );
   };
 }
 
-let TopBar = connect()(UnconnectedLogin);
+let TopBar = connect()(UnconnectedTopBar);
 export default TopBar;
