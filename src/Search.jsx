@@ -47,7 +47,7 @@ class UnconnectedSearch extends Component {
               value={this.props.query}
               placeholder="I'm looking for..."
             />
-            <input type="submit" value="search" className="search-button" />
+            <input type="submit" value="text" className="search-button" />
           </div>
           <div>
             Minimum price
@@ -88,6 +88,3 @@ let mapStateToProps = st => {
 
 let Search = connect(mapStateToProps)(UnconnectedSearch);
 export default Search;
-
-//main page for css to define the background color, the font, etc
-//if you need to define position must be inside the component, example if login and signup to be small boxes in the top right corner and then position it
