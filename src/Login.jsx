@@ -45,11 +45,11 @@ class UnconnectedLogin extends Component {
     return (
       <form onSubmit={this.handleSubmit} className="login">
         <div className="login-child">
-          Username
+          Username:
           <input type="text" onChange={this.handleUsernameChange} />
         </div>
         <div>
-          Password
+          Password:
           <input type="text" onChange={this.handlePasswordChange} />
         </div>
         <input type="submit" />

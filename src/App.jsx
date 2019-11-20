@@ -8,7 +8,7 @@ import Signup from "./Signup.jsx";
 import Search from "./Search.jsx";
 import ItemDescription from "./ItemDescription.jsx";
 import Users from "./Users.jsx";
-import AddToCart from "./AddToCart.jsx";
+import Cart from "./Cart.jsx";
 import TopBar from "./TopBar.jsx";
 
 class UnconnectedApp extends Component {

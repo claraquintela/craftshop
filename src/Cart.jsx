@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 
 class unconnectedCart extends Component {
   render = () => {
-    let cartItems = this.props.items.map(itemId => {
+    let cartItems = this.props.cart.map(itemId => {
       return findItem(itemId);
     });
     let itemsAsElements = cartItems.map(item => {
-      return <div>{item.description}</div>;
+      return <div>{item.title}</div>;
     });
     return (
       <div>

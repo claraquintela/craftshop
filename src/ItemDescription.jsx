@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 import "./app.css";
 
 class UnconnectedItemDescription extends Component {
+  submitHandler = evt => {
+    evt.preventDefault();
+    let addedProduct = this.props.item.title;
+    this.props.dispatch({ type: "addedToCart", added: addedProduct });
+  };
+
   render() {
     return (
       <div>
-        <img height="300px" width="400px" src={this.props.item.imgLocation} />
+        {/* <img height="300px" width="400px" src={this.props.item.imgLocation} /> */}
         <h2>{this.props.item.title}</h2>
         <div>
           <b>Location:</b>
@@ -36,6 +42,9 @@ class UnconnectedItemDescription extends Component {
           <b>Item Reviews:</b>
           {this.props.item.reviews}
         </div>
+        <form onSubmit={this.submitHandler}>
+          <input type="submit" value="add to cart" />
+        </form>
       </div>
     );
   }
