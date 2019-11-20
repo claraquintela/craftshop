@@ -1,10 +1,19 @@
 .navigationBar {
-    background-color: #597f7c;
-    font-family: Georgia, serif;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  border-bottom: 3px;
+  height: 200px;
+  background-color: #597f7c;
+  font-family: Georgia, serif;
 }
 
 .topbar-title {
-    font-family: Georgia, serif;
-    font-size: 24px;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  align-self: left;
+  padding-bottom: 2px;
+  color: #9fc9c3;
 }
+
+/* .topbar-left {} */

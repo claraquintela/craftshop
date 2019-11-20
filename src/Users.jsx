@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class unconnectedUsers extends Component {
+class UnconnectedUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,7 @@ class unconnectedUsers extends Component {
       img: ""
     };
   }
+
   titleHandler = evt => {
     this.setState({ title: evt.target.value });
   };
@@ -54,12 +55,12 @@ class unconnectedUsers extends Component {
     return;
   };
   render() {
+    console.log("USERS WORK ALREADY", this.props.user);
     return (
       <div>
         <div>
-          <img height="200px" width="200px" src={this.props.users.userImg} />
-          <h2>{this.props.users.name}</h2>
-          <div>{this.props.users.location}</div>
+          <h2>Name: {this.props.user.username}</h2>
+          <div>Location:{this.props.user.location}</div>
         </div>
         <div>
           Products for sale:
@@ -67,10 +68,7 @@ class unconnectedUsers extends Component {
             {this.props.products.map(item => {
               return (
                 <li>
-                  {" "}
-                  <Link to={"/itemDescription/" + item.itemId}>
-                    {item.name}
-                  </Link>
+                  <Link to={"/itemDescription/" + item._id}>{item.name}</Link>
                 </li>
               );
             })}
@@ -89,30 +87,9 @@ class unconnectedUsers extends Component {
               );
             })}
           </ul>
-          <div>
-            Sell Products:
-            <form onSubmit={this.submitHandler}>
-              <div>
-                Item title:
-                <input type="text" onChange={this.titleHandler} />
-              </div>
-              Item Price:
-              <input type="number" onChange={this.priceHandler} />
-              <div>
-                Item description:
-                <input type="text" onChange={this.descriptionHandler} />
-              </div>
-              <div>
-                Location of item:
-                <input type="text" onChange={this.locationHandler} />
-              </div>
-              <div>
-                Add an image:
-                <input type="file" onChange={this.imgHandler} />
-              </div>
-              <input type="submit" />
-            </form>
-          </div>
+        </div>
+        <div>
+          <Link to={"/addNewProduct/"}>Sell Your Product</Link>
         </div>
       </div>
     );
@@ -121,11 +98,11 @@ class unconnectedUsers extends Component {
 
 let mapStateToProps = st => {
   return {
-    users: st.users,
     products: st.products,
-    reviews: st.reviews
+    reviews: st.reviews,
+    users: st.users
   };
 };
 
-let Users = connect(mapStateToProps)(unconnectedUsers);
+let Users = connect(mapStateToProps)(UnconnectedUsers);
 export default Users;

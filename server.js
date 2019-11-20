@@ -4,10 +4,13 @@ let MongoClient = require("mongodb").MongoClient;
 let ObjectID = require("mongodb").ObjectID;
 let reloadMagic = require("./reload-magic.js");
 let multer = require("multer");
-let sessions = {};
+
 let upload = multer({
   dest: __dirname + "/uploads/"
 });
+let sessions = {};
+let cookieParser = require("cookie-parser");
+app.use(cookieParser());
 reloadMagic(app);
 
 app.use("/", express.static("build"));
@@ -41,8 +44,7 @@ app.get("/allusers", (req, res) => {
       }
       console.log("users", user);
       res.send(JSON.stringify({
-        success: true,
-        users: user
+        user
       }));
     });
 });
@@ -190,6 +192,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   console.log("request to /new-product. body: ", req.body, req.cookies);
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
+  console.log("username", username);
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;
@@ -200,7 +203,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
     description: description,
     frontendPath: frontendPath,
     username: username,
-    fileType: fileType,
+    img: fileType,
     price: price,
     title: title
   });
@@ -209,6 +212,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
       success: true
     })
   );
+  return;
 });
 app.get("/allproducts", (req, res) => {
   console.log("request to /allproducts")

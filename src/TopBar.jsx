@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./topbar.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class UnconnectedTopBar extends Component {
   constructor(props) {
@@ -35,23 +36,40 @@ class UnconnectedTopBar extends Component {
   };
   render = () => {
     return (
-      <div class="navigationBar">
-        <div class="topbar">
-          <section class="topbar right">
-            <img src="public/logo.png">
-            <button class="topbar menu">menu</button>
-            <span class="topbar-title">Crafty People</span>{" "}
-        </section>
-          <section class="topbar left">
-            <button class="icon" aria-label="Download">
-              file_download
-            </button>
-            <button class="icon" aria-label="Print this page">
-              print
-            </button>
-            <button class="icon" aria-label="Bookmark this page">
-              bookmark
-            </button>
+      <div>
+        <div className="navigationBar">
+          <Link className="link" to="/">
+            <img
+              src="http://claraquintela.com/wp-content/uploads/2019/11/crafty-people-Logo.png"
+              align="left"
+              height="200px"
+            />
+          </Link>
+          <section class="topbar-left">
+            <Link className="link" to="/login">
+              <img
+                src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
+                height="50px"
+                nameclass="icon"
+                aria-label="login"
+              />
+            </Link>
+            <Link className="link" to="/signup">
+              <img
+                src="http://claraquintela.com/wp-content/uploads/2019/11/signup.png"
+                height="50px"
+                nameclass="icon"
+                aria-label="signup"
+              />
+            </Link>
+            <Link className="link" to="/c art">
+              <img
+                src="http://claraquintela.com/wp-content/uploads/2019/11/shopping-cart.png"
+                height="50px"
+                nameclass="icon"
+                aria-label="shopping_cart"
+              />
+            </Link>
           </section>
         </div>
       </div>
