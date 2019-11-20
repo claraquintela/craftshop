@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
+import "./search.css";
 
 class UnconnectedSearch extends Component {
   onQueryChange = evt => {
@@ -36,16 +37,17 @@ class UnconnectedSearch extends Component {
   };
   render = () => {
     return (
-      <div>
+      <div className="topbar-search">
         <form onSubmit={this.handleSubmit}>
           <div>
-            Search Query
             <input
-              type="text"
+              type="search"
+              className="search-field"
               onChange={this.onQueryChange}
               value={this.props.query}
+              placeholder="I'm looking for..."
             />
-            <input type="submit" value="search" />
+            <input type="submit" value="search" className="search-button" />
           </div>
           <div>
             Minimum price
