@@ -37,7 +37,7 @@ class UnconnectedTopBar extends Component {
                 aria-label="signup"
               />
             </Link>
-            <Link className="link" to="/c art">
+            <Link className="link" to="/cart">
               <img
                 src="http://claraquintela.com/wp-content/uploads/2019/11/shopping-cart.png"
                 height="50px"
