@@ -8,7 +8,7 @@ class UnconnectedNewProduct extends Component {
   };
   priceHandler = evt => {
     console.log("price of new product", evt.target.number);
-    this.props.dispatch({ type: "new-price", price: evt.target.number });
+    this.props.dispatch({ type: "new-price", price: evt.target.value });
   };
   descriptionHandler = evt => {
     console.log("description of new product", evt.target.value);
@@ -25,10 +25,10 @@ class UnconnectedNewProduct extends Component {
     });
   };
   imgHandler = evt => {
-    console.log("img of new product", evt.target.file);
-    this.props.dispatch({ type: "new-img", img: evt.target.file[0] });
+    console.log("img of new product", evt.target.files[0]);
+    this.props.dispatch({ type: "new-img", img: evt.target.files[0] });
   };
-  submitHandler = evt => {
+  submitHandler = async evt => {
     evt.preventDefault();
     console.log(this.props.img);
     if (this.props.img === undefined) {
@@ -36,18 +36,32 @@ class UnconnectedNewProduct extends Component {
     }
     console.log("product form submitted");
     let data = new FormData();
-    data.append("item title", this.props.title);
-    data.append("item price", this.props.price);
-    data.append("item description", this.props.description);
-    data.append("item location", this.props.location);
-    data.append("item img", this.props.img);
-    fetch("/new-product", {
+    data.append("title", this.props.title);
+    data.append("price", this.props.price);
+    data.append("description", this.props.description);
+    data.append("location", this.props.location);
+    data.append("img", this.props.img);
+    let newResponse = await fetch("/new-product", {
       method: "POST",
       body: data,
       credentials: "include"
     });
-
-    return;
+    let newResponseBody = await newResponse.text();
+    let newBody = JSON.parse(newResponseBody);
+    console.log("JSON PARSE for new product", newBody);
+    if (!newBody.success) {
+      alert("Upload failed, try again");
+      return;
+    }
+    alert("Your product has been successfully uploaded :D");
+    this.setState({
+      title: "",
+      price: null,
+      location: "",
+      description: "",
+      img: null
+    });
+    this.props.dispatch({ type: "newproduct-success" });
   };
   render() {
     console.log("users new product form");

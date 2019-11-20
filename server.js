@@ -200,7 +200,7 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
-  console.log("request to /new-product. body: ", req.body, req.cookies);
+  console.log("request to /new-product. body: ", req.body);
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
   console.log("username", username);
@@ -209,12 +209,12 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   let price = req.body.price;
   console.log("files", req.file);
   let file = req.file;
-  let frontendPath = "/uploads/" + file;
+  let frontendPath = "/uploads/" + file.filename;
   dbo.collection("products").insertOne({
     description: description,
     frontendPath: frontendPath,
     username: username,
-    price: price,
+    price: Number(price),
     title: title
   });
   res.send(

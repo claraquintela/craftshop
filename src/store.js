@@ -41,6 +41,9 @@ let reducer = (state, action) => {
   if (action.type === "new-img") {
     return { ...state, img: action.img };
   }
+  if (action.type === "newproduct-success") {
+    return { ...state, newProductUpload: true };
+  }
 
   return state;
 };
@@ -61,7 +64,8 @@ let store = createStore(
     price: "",
     location: "",
     description: "",
-    img: null
+    img: null,
+    newProductUpload: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
