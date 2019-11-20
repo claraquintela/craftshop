@@ -8,6 +8,7 @@ import Signup from "./Signup.jsx";
 import Search from "./Search.jsx";
 import ItemDescription from "./ItemDescription.jsx";
 import Users from "./Users.jsx";
+import AddToCart from "./AddToCart.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -20,16 +21,18 @@ class UnconnectedApp extends Component {
     let userResponseBody = await userResponse.text();
     let userParsed = JSON.parse(userResponseBody);
     console.log("user parsed", userParsed);
-    this.props.dispatch({ type: "set-users", users: userParsed });
+    this.props.dispatch({ type: "set-users", users: userParsed.user });
   };
   renderMainPage = () => {
     console.log("this.props.users", this.props.users);
     return (
       <div>
-        <h1>Signup here</h1>
-        <Signup />
-        <h1>Login here</h1>
-        <Login />
+        <div>
+          <Link to={"/signup"}>Signup</Link>
+        </div>
+        <div>
+          <Link to={"/login"}>Login</Link>
+        </div>
         <div>
           <Search />
         </div>
@@ -46,15 +49,26 @@ class UnconnectedApp extends Component {
         <div>
           Users:
           {this.props.users.map(user => {
+            console.log(
+              "Is this.props.users working?",
+              user._id,
+              user.username
+            );
             return (
               <div>
-                <Link to={"/userPage/" + user._id}>{user.username}</Link>
+                <Link to={"/userPage/" + user._id}> {user.username} </Link>
               </div>
             );
           })}
-        </div> 
+        </div>
       </div>
     );
+  };
+  renderSignup = () => {
+    return <Signup />;
+  };
+  renderLogin = () => {
+    return <Login />;
   };
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;
@@ -73,13 +87,16 @@ class UnconnectedApp extends Component {
       return user._id === userId;
     });
     console.log("candidate", candidate);
-    return <Users user={candidate} />;
+    return <Users user={candidate[0]} />;
   };
+
   render = () => {
     return (
       <BrowserRouter>
         <div>
           <Route exact={true} path="/" render={this.renderMainPage} />
+          <Route exact={true} path="/signup" render={this.renderSignup} />
+          <Route exact={true} path="/login" render={this.renderLogin} />
           <Route
             exact={true}
             path="/itemDescription/:_id"
@@ -90,6 +107,12 @@ class UnconnectedApp extends Component {
             path="/userPage/:_id"
             render={this.renderUserPage}
           />
+          <Route
+            exact={true}
+            path="/addNewProduct"
+            render={this.renderNewProduct}
+          />
+          <Route exact={true} path="/cart" render={this.renderAddToCart} />
         </div>
       </BrowserRouter>
     );

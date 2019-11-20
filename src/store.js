@@ -20,6 +20,7 @@ let reducer = (state, action) => {
     return { ...state, products: action.products };
   }
   if (action.type === "set-users") {
+    console.log("action.users", action.users);
     return { ...state, users: action.users };
   }
   if (action.type === "search-results") {

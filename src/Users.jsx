@@ -2,10 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-<<<<<<< HEAD
 class UnconnectedUsers extends Component {
-=======
-class unconnectedUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +13,7 @@ class unconnectedUsers extends Component {
       img: ""
     };
   }
+
   titleHandler = evt => {
     this.setState({ title: evt.target.value });
   };
@@ -56,7 +54,6 @@ class unconnectedUsers extends Component {
     });
     return;
   };
->>>>>>> 1bf02f3ee06ffd96cc2b1251991b9fef40c9a2f5
   render() {
     console.log("USERS WORK ALREADY", this.props.user);
     return (
@@ -91,7 +88,9 @@ class unconnectedUsers extends Component {
             })}
           </ul>
         </div>
-        <div>Sell Your Product:</div>
+        <div>
+          <Link to={"/addNewProduct/"}>Sell Your Product</Link>
+        </div>
       </div>
     );
   }
@@ -100,7 +99,8 @@ class unconnectedUsers extends Component {
 let mapStateToProps = st => {
   return {
     products: st.products,
-    reviews: st.reviews
+    reviews: st.reviews,
+    users: st.users
   };
 };
 

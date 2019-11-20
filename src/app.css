@@ -1,9 +1,8 @@
 body {
-  background-color: #fcf7ea;
+  background-color: #fcfcfc;
   margin: 0;
   font-family: Georgia, serif;
 }
-
 
 .overlay {
   z-index: 50;
