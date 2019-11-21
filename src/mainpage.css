@@ -18,10 +18,13 @@
     margin: 15px;
     padding: 5px;
     border: 1px dotted #683232;
+    width: 250px;
 }
 
 .mainpage-photo {
     height: 250px;
+    width: 100%;
+    object-fit: cover;
 
 }
 
