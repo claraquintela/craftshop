@@ -21,7 +21,8 @@ let url =
   "mongodb+srv://craft:Craft123@cluster0-71uur.mongodb.net/test?retryWrites=true&w=majority";
 
 MongoClient.connect(
-  url, {
+  url,
+  {
     useNewUrlParser: true
   },
   (err, db) => {
@@ -68,7 +69,7 @@ app.get("/allproducts", (req, res) => {
         return;
       }
 
-      products = products.slice(-4)
+      products = products.slice(-4);
       console.log("products", products);
       res.send(JSON.stringify(products));
     });
@@ -78,7 +79,8 @@ app.post("/signup", upload.none(), (req, res) => {
   console.log("signup", req.body);
   let name = req.body.username;
   let pwd = req.body.password;
-  dbo.collection("users").findOne({
+  dbo.collection("users").findOne(
+    {
       username: name
     },
     (err, user) => {
@@ -120,7 +122,8 @@ app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
   let name = req.body.username;
   let password = req.body.password;
-  dbo.collection("users").findOne({
+  dbo.collection("users").findOne(
+    {
       username: name
     },
     (err, user) => {
@@ -208,10 +211,10 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   let price = req.body.price;
   console.log("files", req.file);
   let file = req.file;
-  let frontendPath = "/uploads/" + file.filename;
+  let imgPath = "/uploads/" + file.filename;
   dbo.collection("products").insertOne({
     description: description,
-    frontendPath: frontendPath,
+    image: imgPath,
     username: username,
     price: Number(price),
     title: title

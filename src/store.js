@@ -47,6 +47,9 @@ let reducer = (state, action) => {
   if (action.type === "addedToCart") {
     return { ...state, cart: state.cart.concat(action.added) };
   }
+  if (action.type === "toggleAdvancedSearch") {
+    return { ...state, toggleAdvancedSearch: !state.displayAdvancedSearch };
+  }
 
   return state;
 };
@@ -68,7 +71,8 @@ let store = createStore(
     location: "",
     description: "",
     img: null,
-    newProductUpload: false
+    newProductUpload: false,
+    toggleAdvancedSearch: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
