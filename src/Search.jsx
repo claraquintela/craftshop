@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import "./search.css";
+import SearchResults from "./SearchResults.jsx";
 
 class UnconnectedSearch extends Component {
   onQueryChange = evt => {
@@ -33,22 +34,15 @@ class UnconnectedSearch extends Component {
       type: "search-results",
       searchResults: parsed.items
     });
-    this.setState({ query: "", minPrice: "", maxPrice: "" });
+    this.setState({ query: "", searchResults: searchResults });
   };
-  render = () => {
-    return (
-      <div className="topbar-search">
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input
-              type="search"
-              className="search-field"
-              onChange={this.onQueryChange}
-              value={this.props.query}
-              placeholder="I'm looking for..."
-            />
-            <input type="submit" value="search" className="search-button" />
-          </div>
+  toggleAdvancedSearch = () => {
+    this.props.dispatch({ type: "toggleAdvancedSearch" });
+  };
+  displayAdvancedSearch = () => {
+    if (this.props.displayAdvancedSearch) {
+      return (
+        <div>
           <div>
             Minimum price
             <input
@@ -65,13 +59,37 @@ class UnconnectedSearch extends Component {
               value={this.props.maxPrice}
             />
           </div>
+        </div>
+      );
+    }
+    return null;
+  };
+  render = () => {
+    return (
+      <div className="topbar-search">
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <input
+              type="search"
+              className="search-field"
+              onChange={this.onQueryChange}
+              value={this.props.query}
+              placeholder="I'm looking for..."
+            />
+            <input type="submit" value="search" className="search-button" />
+          </div>
+          <div>
+            {this.displayAdvancedSearch()}
+            <button
+              onClick={this.toggleAdvancedSearch}
+              className="search-button"
+            >
+              Advanced Search
+            </button>
+          </div>
         </form>
         <div>
-          <ul>
-            {this.props.searchResults.map(items => {
-              return <li>{items.title}</li>;
-            })}
-          </ul>
+          <SearchResults />
         </div>
       </div>
     );
@@ -82,7 +100,8 @@ let mapStateToProps = st => {
     searchResults: st.searchResults,
     query: st.searchQuery,
     minPrice: st.min,
-    maxPrice: st.max
+    maxPrice: st.max,
+    displayAdvancedSearch: st.displayAdvancedSearch
   };
 };
 
