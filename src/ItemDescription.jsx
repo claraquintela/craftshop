@@ -6,8 +6,10 @@ import "./app.css";
 class UnconnectedItemDescription extends Component {
   submitHandler = evt => {
     evt.preventDefault();
-    let addedProduct = this.props.item.title;
-    this.props.dispatch({ type: "addedToCart", added: addedProduct });
+    this.props.dispatch({
+      type: "addedToCart",
+      added: this.props.item
+    });
   };
 
   render() {
