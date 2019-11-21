@@ -13,7 +13,7 @@ class UnconnectedItemDescription extends Component {
   render() {
     return (
       <div>
-        {/* <img height="300px" width="400px" src={this.props.item.imgLocation} /> */}
+        <img height="300px" width="400px" src={this.props.item.imgLocation} />
         <h2>{this.props.item.title}</h2>
         <div>
           <b>Location:</b>

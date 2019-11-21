@@ -11,6 +11,7 @@ import Users from "./Users.jsx";
 import Cart from "./Cart.jsx";
 import TopBar from "./TopBar.jsx";
 import NewProduct from "./NewProduct.jsx";
+import MainPage from "./MainPage.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -29,16 +30,7 @@ class UnconnectedApp extends Component {
     console.log("this.props.users", this.props.users);
     return (
       <div>
-        <div>
-          Products:
-          {this.props.products.map(item => {
-            return (
-              <div>
-                <Link to={"/itemDescription/" + item._id}>{item.title}</Link>
-              </div>
-            );
-          })}
-        </div>
+        <MainPage />
         <div>
           Users:
           {this.props.users.map(user => {
@@ -67,7 +59,7 @@ class UnconnectedApp extends Component {
     return <NewProduct />;
   };
   renderAddToCart = () => {
-    return <AddToCart />;
+    return <Cart />;
   };
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;
