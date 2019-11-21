@@ -12,6 +12,7 @@ import Cart from "./Cart.jsx";
 import TopBar from "./TopBar.jsx";
 import NewProduct from "./NewProduct.jsx";
 import MainPage from "./MainPage.jsx";
+import BottomBar from "./BottomBar.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -27,25 +28,9 @@ class UnconnectedApp extends Component {
     this.props.dispatch({ type: "set-users", users: userParsed.user });
   };
   renderMainPage = () => {
-    console.log("this.props.users", this.props.users);
     return (
       <div>
         <MainPage />
-        <div>
-          Users:
-          {this.props.users.map(user => {
-            console.log(
-              "Is this.props.users working?",
-              user._id,
-              user.username
-            );
-            return (
-              <div>
-                <Link to={"/userPage/" + user._id}> {user.username} </Link>
-              </div>
-            );
-          })}
-        </div>
       </div>
     );
   };
@@ -105,6 +90,8 @@ class UnconnectedApp extends Component {
             render={this.renderNewProduct}
           />
           <Route exact={true} path="/cart" render={this.renderAddToCart} />
+
+          <BottomBar />
         </div>
       </BrowserRouter>
     );

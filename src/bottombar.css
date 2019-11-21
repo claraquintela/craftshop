@@ -11,20 +11,32 @@
     width: 100%;
     background-color: #597f7c;
     font-family: Georgia, serif;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-right: 30px;
-    margin-bottom: 100px;
+    margin-left: 30px;
     border-radius: 10px;
     padding: 0px 10px 20px 10px;
 
 }
 
-
-.topbar-image {
-    margin: 10px;
-    margin-left: 20px;
+.navigationBar {
+    width: 95%;
 }
 
-.topbar-right {
+.footer-text {
     display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 24px;
+}
+
+.bottombar-left {
+    display: flex;
+    margin-top: 20px;
+}
+
+.text_bottom {
+    padding: 15px;
 }

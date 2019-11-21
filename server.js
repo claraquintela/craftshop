@@ -170,8 +170,10 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
-  console.log("search hit ", req.body.search);
+  console.log("search hit ", req.body.search, req.body.minPrice);
   let search = req.body.search;
+  let minPrice = req.body.minPrice;
+  let maxPrice = req.body.maxPrice;
   dbo
     .collection("products")
     .find({
@@ -190,7 +192,13 @@ app.post("/search", upload.none(), (req, res) => {
         );
         return;
       }
-      console.log("find items", items);
+
+      items = items.filter(item => {
+        return (
+          Number(item.price) > Number(minPrice) &&
+          Number(item.price) < Number(maxPrice)
+        );
+      });
       res.send(
         JSON.stringify({
           success: true,
