@@ -54,18 +54,10 @@ let reducer = (state, action) => {
     console.log("action", action.cart);
     return { ...state, cart: action.cart };
   }
-  if (action.type === "productInStock") {
-    return { ...state, inStock: action.inStock };
+  if (action.type === "logout") {
+    return { ...state, login: false };
   }
-  if (action.type === "clearSearch") {
-    return {
-      ...state,
-      searchQuery: "",
-      minimum: undefined,
-      maximum: undefined,
-      inStock: undefined
-    };
-  }
+
   return state;
 };
 
@@ -77,9 +69,8 @@ let store = createStore(
     users: [],
     login: false,
     searchQuery: "",
-    minimum: undefined,
-    maximum: undefined,
-    inStock: undefined,
+    minimum: 0,
+    maximum: 1000000,
     reviews: [],
     cart: [],
     title: "",

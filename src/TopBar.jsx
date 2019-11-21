@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
 
 class UnconnectedTopBar extends Component {
+  logoutHandler = evt => {
+    evt.preventDefault();
+    this.props.dispatch({ type: "logout" });
+  };
   render = () => {
     return (
       <div className="container-topbar">
@@ -22,7 +26,7 @@ class UnconnectedTopBar extends Component {
         <div className="navigationBar">
           <Search />
 
-          <section class="topbar-right">
+          <section class="topbar-left">
             <Link className="link" to="/login">
               <img
                 src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
@@ -49,15 +53,13 @@ class UnconnectedTopBar extends Component {
             </Link>
           </section>
         </div>
+        <form onSubmit="logoutHandler">
+          <input type="submit" value="Log Out" />
+        </form>
       </div>
     );
   };
 }
-let mapStateToProps = st => {
-  return {
-    users: st.users
-  };
-};
 
 let TopBar = connect()(UnconnectedTopBar);
 export default TopBar;
