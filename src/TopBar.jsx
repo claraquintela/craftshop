@@ -22,7 +22,7 @@ class UnconnectedTopBar extends Component {
         <div className="navigationBar">
           <Search />
 
-          <section class="topbar-left">
+          <section class="topbar-right">
             <Link className="link" to="/login">
               <img
                 src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
