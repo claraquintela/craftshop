@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import "./search.css";
-import SearchResults from "./SearchResults.jsx";
 
 class UnconnectedSearch extends Component {
   onQueryChange = evt => {
@@ -34,13 +33,16 @@ class UnconnectedSearch extends Component {
       type: "search-results",
       searchResults: parsed.items
     });
-    this.setState({ query: "", searchResults: searchResults });
+    this.setState({ query: "", searchResults: [] });
   };
   toggleAdvancedSearch = () => {
     this.props.dispatch({ type: "toggleAdvancedSearch" });
   };
   displayAdvancedSearch = () => {
-    if (this.props.displayAdvancedSearch) {
+    if (!this.props.displayAdvancedSearch) {
+      return null;
+    }
+    {
       return (
         <div>
           <div>
@@ -62,9 +64,9 @@ class UnconnectedSearch extends Component {
         </div>
       );
     }
-    return null;
   };
   render = () => {
+    console.log("this.props.searchResults", this.props.searchResults);
     return (
       <div className="topbar-search">
         <form onSubmit={this.handleSubmit}>
@@ -88,15 +90,13 @@ class UnconnectedSearch extends Component {
             </button>
           </div>
         </form>
-        <div>
-          <SearchResults />
-        </div>
       </div>
     );
   };
 }
 let mapStateToProps = st => {
   return {
+    products: st.products,
     searchResults: st.searchResults,
     query: st.searchQuery,
     minPrice: st.min,

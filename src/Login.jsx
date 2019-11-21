@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./login.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class UnconnectedLogin extends Component {
   constructor(props) {
@@ -44,17 +45,27 @@ class UnconnectedLogin extends Component {
   };
   render = () => {
     return (
-      <form onSubmit={this.handleSubmit} className="login">
-        <div className="login-child">
-          Username:
-          <input type="text" onChange={this.handleUsernameChange} />
-        </div>
-        <div>
-          Password:
-          <input type="text" onChange={this.handlePasswordChange} />
-        </div>
-        <input type="submit" />
-      </form>
+      <div className="container-login">
+        <img
+          src="http://claraquintela.com/wp-content/uploads/2019/11/white_and_green_leaves_illustration_landscaping_business_card.png"
+          className="image-login"
+        />
+
+        <form onSubmit={this.handleSubmit} className="login">
+          <div className="login-child">
+            Username:
+            <input type="text" onChange={this.handleUsernameChange} />
+          </div>
+          <div className="login-child">
+            Password:
+            <input type="text" onChange={this.handlePasswordChange} />
+          </div>
+          <input type="submit" className="login-button" />
+          <Link className="link" to="/signup">
+            <div>Would you like to sign up? Click here</div>
+          </Link>
+        </form>
+      </div>
     );
   };
 }
