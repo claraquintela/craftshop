@@ -61,7 +61,6 @@ class UnconnectedSearch extends Component {
             <input
               type="number"
               onChange={this.handleMinimumPrice}
-              value={this.props.minPrice}
               placeholder="0"
             />
           </div>
@@ -70,7 +69,6 @@ class UnconnectedSearch extends Component {
             <input
               type="number"
               onChange={this.handleMaximumPrice}
-              value={this.props.maxPrice}
               placeholder="100000"
             />
           </div>

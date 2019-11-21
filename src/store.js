@@ -60,8 +60,8 @@ let reducer = (state, action) => {
     return {
       ...state,
       searchQuery: "",
-      minimum: undefined,
-      maximum: undefined,
+      minimum: 0,
+      maximum: 1000000000,
       inStock: undefined
     };
   }
@@ -76,8 +76,8 @@ let store = createStore(
     users: [],
     login: false,
     searchQuery: "",
-    minimum: undefined,
-    maximum: undefined,
+    minimum: 0,
+    maximum: 1000000000,
     inStock: undefined,
     reviews: [],
     cart: [],
