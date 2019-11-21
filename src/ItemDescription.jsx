@@ -13,9 +13,10 @@ class UnconnectedItemDescription extends Component {
   };
 
   render() {
+    console.log("this.props.item.image", this.props.item.image);
     return (
       <div>
-        <img height="300px" width="400px" src={this.props.item.imgLocation} />
+        <img height="300px" width="400px" src={this.props.item.image} />
         <h2>{this.props.item.title}</h2>
         <div>
           <b>Location:</b>
@@ -23,8 +24,8 @@ class UnconnectedItemDescription extends Component {
         </div>
         <div>
           <b>Seller:</b>
-          <Link to={"/users/" + this.props.users.id}>
-            {this.props.users.name}
+          <Link to={"/users/" + this.props.item.username}>
+            {this.props.item.username}
           </Link>
         </div>
 

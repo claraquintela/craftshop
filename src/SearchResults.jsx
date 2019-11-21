@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./mainpage.css";
 
-class UnconnectedMainPage extends Component {
+class UnconnectedSearchResults extends Component {
   render = () => {
+      let results = products.filter(search => {
+          return product.title.includes
+      })
     return (
       <div className="container-mainpage">
         <div className="title-mainpage">
@@ -15,7 +18,7 @@ class UnconnectedMainPage extends Component {
           products
         </div>
         <div className="body-mainpage">
-          {this.props.products.map(item => {
+          {this.props.searchResults.map(item => {
             return (
               <div className="item-container">
                 <Link to={"/itemDescription/" + item._id}>
@@ -34,8 +37,12 @@ class UnconnectedMainPage extends Component {
 
 let mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    searchResults: state.searchResults,
+    searchQuery: state.searchQuery,
+    minPrice: state.minimum,
+    maxPrice: state.maximum
   };
 };
-let MainPage = connect(mapStateToProps)(UnconnectedMainPage);
-export default MainPage;
+let SearchResults = connect(mapStateToProps)(UnconnectedSearchResults);
+export default SearchResults;
