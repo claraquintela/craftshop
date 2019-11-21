@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import "./signup.css";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class UnconnectedSignup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      redirect: false
     };
   }
   handleUsernameChange = event => {
@@ -38,8 +39,10 @@ class UnconnectedSignup extends Component {
     alert("Signup is successful! Welcome to CraftyPeople!!");
     this.setState({ username: "", password: "" });
     this.props.dispatch({ type: "login-success" });
+    this.setState({ redirect: true });
   };
   render() {
+    if (this.state.redirect) return <Redirect to="/" />;
     return (
       <div className="container-signup">
         <img
@@ -49,19 +52,21 @@ class UnconnectedSignup extends Component {
         <div>
           <form onSubmit={this.signupSubmitHandler} className="signup">
             <div className="signup-child">
-              Username:
+              Username
               <input
                 type="text"
                 onChange={this.handleUsernameChange}
                 value={this.state.username}
+                className="signup-field"
               />
             </div>
             <div className="signup-child">
-              Password:
+              Password
               <input
                 type="text"
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
+                className="signup-field"
               />
             </div>
             <input type="submit" className="signup-button" />
