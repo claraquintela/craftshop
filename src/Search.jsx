@@ -47,7 +47,7 @@ class UnconnectedSearch extends Component {
               value={this.props.query}
               placeholder="I'm looking for..."
             />
-            <input type="submit" value="text" className="search-button" />
+            <input type="submit" value="search" className="search-button" />
           </div>
           <div>
             Minimum price
