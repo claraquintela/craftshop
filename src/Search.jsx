@@ -33,7 +33,6 @@ class UnconnectedSearch extends Component {
       type: "search-results",
       searchResults: parsed.items
     });
-    this.setState({ query: "", searchResults: [] });
   };
   toggleAdvancedSearch = () => {
     this.props.dispatch({ type: "toggleAdvancedSearch" });
