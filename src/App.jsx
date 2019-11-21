@@ -27,25 +27,9 @@ class UnconnectedApp extends Component {
     this.props.dispatch({ type: "set-users", users: userParsed.user });
   };
   renderMainPage = () => {
-    console.log("this.props.users", this.props.users);
     return (
       <div>
         <MainPage />
-        <div>
-          Users:
-          {this.props.users.map(user => {
-            console.log(
-              "Is this.props.users working?",
-              user._id,
-              user.username
-            );
-            return (
-              <div>
-                <Link to={"/userPage/" + user._id}> {user.username} </Link>
-              </div>
-            );
-          })}
-        </div>
       </div>
     );
   };

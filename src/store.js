@@ -53,7 +53,9 @@ let reducer = (state, action) => {
   if (action.type === "deleteCartItem") {
     return { ...state, cart: action.cart };
   }
-
+  if (action.type === "productInStock") {
+    return { ...state, inStock: action.inStock };
+  }
   return state;
 };
 
@@ -67,6 +69,7 @@ let store = createStore(
     searchQuery: "",
     minimum: 0,
     maximum: 1000000,
+    inStock: undefined,
     reviews: [],
     cart: [],
     title: "",

@@ -7,18 +7,24 @@ class UnconnectedSearch extends Component {
     this.props.dispatch({ type: "query", q: evt.target.value });
   };
   handleMinimumPrice = evt => {
-    let price = parseInt(evt.target.value);
-    this.props.dispatch({ type: "minimum-price", price: price });
+    console.log(evt.target.value);
+    this.props.dispatch({ type: "minimum-price", price: evt.target.value });
   };
   handleMaximumPrice = evt => {
-    let price = parseInt(evt.target.value);
-    this.props.dispatch({ type: "maximum-price", price: price });
+    this.props.dispatch({ type: "maximum-price", price: evt.target.value });
   };
   handleSubmit = async evt => {
     evt.preventDefault();
     let data = new FormData();
     data.append("search", this.props.query);
-    console.log("search", this.props.query, data);
+    data.append("minPrice", this.props.minPrice);
+    data.append("maxPrice", this.props.maxPrice);
+    console.log(
+      "search",
+      this.props.query,
+      this.props.minPrice,
+      this.props.maxPrice
+    );
     let response = await fetch("/search", {
       method: "POST",
       body: data,
@@ -37,6 +43,10 @@ class UnconnectedSearch extends Component {
   toggleAdvancedSearch = () => {
     this.props.dispatch({ type: "toggleAdvancedSearch" });
   };
+  clickInStock = () => {
+    this.props.dispatch({ type: "productInStock" });
+  };
+  submitClearHandler = () => {};
   displayAdvancedSearch = () => {
     if (!this.props.displayAdvancedSearch) {
       return null;
@@ -59,6 +69,13 @@ class UnconnectedSearch extends Component {
               onChange={this.handleMaximumPrice}
               value={this.props.maxPrice}
             />
+          </div>
+          <div>
+            Item in stock
+            <input type="checkbox" onChange={this.clickInStock} />
+          </div>
+          <div>
+            <button onClick={this.submitClearHandler}>Clear search</button>
           </div>
         </div>
       );
@@ -98,8 +115,9 @@ let mapStateToProps = st => {
     products: st.products,
     searchResults: st.searchResults,
     query: st.searchQuery,
-    minPrice: st.min,
-    maxPrice: st.max,
+    minPrice: st.minimum,
+    maxPrice: st.maximum,
+    inStock: st.inStock,
     displayAdvancedSearch: st.displayAdvancedSearch
   };
 };
