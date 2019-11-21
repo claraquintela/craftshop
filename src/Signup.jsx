@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./signup.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class UnconnectedSignup extends Component {
   constructor(props) {
@@ -40,26 +41,35 @@ class UnconnectedSignup extends Component {
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.signupSubmitHandler} className="signup">
-          <div>
-            Username:
-            <input
-              type="text"
-              onChange={this.handleUsernameChange}
-              value={this.state.username}
-            />
-          </div>
-          <div>
-            Password:
-            <input
-              type="text"
-              onChange={this.handlePasswordChange}
-              value={this.state.password}
-            />
-          </div>
-          <input type="submit" />
-        </form>
+      <div className="container-signup">
+        <img
+          src="http://claraquintela.com/wp-content/uploads/2019/11/White-and-Green-Leaves-Illustration-Landscaping-Business-Card-1.png"
+          className="image-signup"
+        />
+        <div>
+          <form onSubmit={this.signupSubmitHandler} className="signup">
+            <div className="signup-child">
+              Username:
+              <input
+                type="text"
+                onChange={this.handleUsernameChange}
+                value={this.state.username}
+              />
+            </div>
+            <div className="signup-child">
+              Password:
+              <input
+                type="text"
+                onChange={this.handlePasswordChange}
+                value={this.state.password}
+              />
+            </div>
+            <input type="submit" className="signup-button" />
+            <Link className="link" to="/login">
+              <div>Already have an account? Click here to log in</div>
+            </Link>
+          </form>
+        </div>
       </div>
     );
   }
