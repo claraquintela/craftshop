@@ -27,6 +27,7 @@ class UnconnectedMainPage extends Component {
                     <img src={item.image} className="mainpage-photo" />
                     <br />
                     {item.title}
+                    <div></div>
                   </Link>
                   {item.description}
                 </div>
