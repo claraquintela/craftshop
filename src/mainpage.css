@@ -22,11 +22,11 @@
 }
 
 .item-container {
-    margin: 10px;
-    border: 1px solid #683232;
+    margin: 15px;
+    border: 1px dotted #683232;
 }
 
 .mainpage-photo {
-    height: 300px;
+    height: 250px;
 
 }

@@ -7,7 +7,13 @@ class UnconnectedMainPage extends Component {
   render = () => {
     return (
       <div className="container-mainpage">
-        <div className="title-mainpage">Products </div>
+        <div className="title-mainpage">
+          {/* <img
+            src="http://claraquintela.com/wp-content/uploads/2019/11/crafty-people-Logo-2.png"
+            height="300px"
+          /> */}
+          products
+        </div>
         <div className="body-mainpage">
           {this.props.products.map(item => {
             return (
