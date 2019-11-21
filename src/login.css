@@ -1,11 +1,43 @@
+.container-login {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
 .login {
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 5px dotted #6AA4A4;
+    border: 1px dotted #6AA4A4;
     width: 250px;
     padding: 10px;
     border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.image-login {
+    width: 400px;
+}
+
+.login-button {
+    margin: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.link {
+    margin: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 10px;
+}
+
+.login-child {
+
+    margin: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
 }
