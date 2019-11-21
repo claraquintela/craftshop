@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 
 class UnconnectedCart extends Component {
   deleteItem = index => {
-    let filtered = this.props.items;
-    filtered = filtered.splice(index, 1);
+    let filtered = this.props.cart.filter((ele, i) => {
+      return i !== index;
+    });
 
     this.props.dispatch({
       type: "deleteCartItem",
@@ -13,11 +14,10 @@ class UnconnectedCart extends Component {
   };
 
   render = () => {
-    console.log(
-      "added product info",
-      this.props.cart.title,
-      this.props.cart.price
-    );
+    let cartTotal = 0;
+    this.props.cart.forEach(items => {
+      cartTotal = cartTotal + parseInt(items.price);
+    });
     return (
       <div>
         These are the items in your cart:
@@ -35,6 +35,12 @@ class UnconnectedCart extends Component {
             </form>
           </div>
         ))}
+        <div>
+          <div>total:{cartTotal + "$"}</div>
+          <form onSubmit="handleCheckout">
+            <input type="submit" value="Proceed to checkout" />
+          </form>
+        </div>
       </div>
     );
   };

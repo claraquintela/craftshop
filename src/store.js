@@ -51,6 +51,7 @@ let reducer = (state, action) => {
     return { ...state, displayAdvancedSearch: !state.displayAdvancedSearch };
   }
   if (action.type === "deleteCartItem") {
+    console.log("action", action.cart);
     return { ...state, cart: action.cart };
   }
 
