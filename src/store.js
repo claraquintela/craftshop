@@ -50,6 +50,9 @@ let reducer = (state, action) => {
   if (action.type === "toggleAdvancedSearch") {
     return { ...state, toggleAdvancedSearch: !state.displayAdvancedSearch };
   }
+  if (action.type === "deleteCartItem") {
+    return { ...state, cart: action.cart };
+  }
 
   return state;
 };

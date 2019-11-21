@@ -5,9 +5,9 @@ import "./mainpage.css";
 
 class UnconnectedSearchResults extends Component {
   render = () => {
-      let results = products.filter(search => {
-          return product.title.includes
-      })
+    let results = products.filter(search => {
+      return product.title.includes;
+    });
     return (
       <div className="container-mainpage">
         <div className="title-mainpage">
