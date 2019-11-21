@@ -26,11 +26,6 @@ let reducer = (state, action) => {
   if (action.type === "search-results") {
     return { ...state, searchResults: action.searchResults };
   }
-<<<<<<< HEAD
-  if (action.type === "addedToCart") {
-    console.log("reducer hit for add to cart");
-    return { ...state, cart: state.cart.concat(action.added) };
-=======
   if (action.type === "new-title") {
     return { ...state, title: action.title };
   }
@@ -48,7 +43,6 @@ let reducer = (state, action) => {
   }
   if (action.type === "newproduct-success") {
     return { ...state, newProductUpload: true };
->>>>>>> 6a2f10d337efb2b406d1face1f4bf251f4d94894
   }
 
   return state;
