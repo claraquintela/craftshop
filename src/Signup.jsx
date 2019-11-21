@@ -63,7 +63,7 @@ class UnconnectedSignup extends Component {
             <div className="signup-child">
               Password
               <input
-                type="text"
+                type="password"
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
                 className="signup-field"

@@ -53,6 +53,11 @@ class UnconnectedTopBar extends Component {
     );
   };
 }
+let mapStateToProps = st => {
+  return {
+    users: st.users
+  };
+};
 
 let TopBar = connect()(UnconnectedTopBar);
 export default TopBar;

@@ -66,7 +66,7 @@ class UnconnectedLogin extends Component {
           <div className="login-child">
             Password
             <input
-              type="text"
+              type="password"
               onChange={this.handlePasswordChange}
               className="login-field"
             />

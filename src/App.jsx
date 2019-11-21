@@ -12,6 +12,7 @@ import Cart from "./Cart.jsx";
 import TopBar from "./TopBar.jsx";
 import NewProduct from "./NewProduct.jsx";
 import MainPage from "./MainPage.jsx";
+import BottomBar from "./BottomBar.jsx";
 
 class UnconnectedApp extends Component {
   componentDidMount = async () => {
@@ -105,6 +106,8 @@ class UnconnectedApp extends Component {
             render={this.renderNewProduct}
           />
           <Route exact={true} path="/cart" render={this.renderAddToCart} />
+
+          <BottomBar />
         </div>
       </BrowserRouter>
     );
