@@ -7,9 +7,7 @@ class UnconnectedMainPage extends Component {
   render = () => {
     if (
       this.props.searchResults.length === 0 &&
-      this.props.searchQuery === "" &&
-      this.props.minPrice === 0 &&
-      this.props.maxPrice === 1000000
+      this.props.searchQuery === ""
     ) {
       return (
         <div className="container-mainpage">
@@ -37,7 +35,7 @@ class UnconnectedMainPage extends Component {
         </div>
       );
     }
-
+    console.log("this.props.searchResults", this.props.searchResults);
     return (
       <div className="container-mainpage">
         <div>

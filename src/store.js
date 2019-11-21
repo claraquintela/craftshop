@@ -56,6 +56,15 @@ let reducer = (state, action) => {
   if (action.type === "productInStock") {
     return { ...state, inStock: action.inStock };
   }
+  if (action.type === "clearSearch") {
+    return {
+      ...state,
+      searchQuery: "",
+      minimum: undefined,
+      maximum: undefined,
+      inStock: undefined
+    };
+  }
   return state;
 };
 
@@ -67,8 +76,8 @@ let store = createStore(
     users: [],
     login: false,
     searchQuery: "",
-    minimum: 0,
-    maximum: 1000000,
+    minimum: undefined,
+    maximum: undefined,
     inStock: undefined,
     reviews: [],
     cart: [],

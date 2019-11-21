@@ -46,7 +46,9 @@ class UnconnectedSearch extends Component {
   clickInStock = () => {
     this.props.dispatch({ type: "productInStock" });
   };
-  submitClearHandler = () => {};
+  submitClearHandler = () => {
+    this.props.dispatch({ type: "clearSearch" });
+  };
   displayAdvancedSearch = () => {
     if (!this.props.displayAdvancedSearch) {
       return null;
@@ -60,6 +62,7 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMinimumPrice}
               value={this.props.minPrice}
+              placeholder="0"
             />
           </div>
           <div>
@@ -68,6 +71,7 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMaximumPrice}
               value={this.props.maxPrice}
+              placeholder="100000"
             />
           </div>
           <div>
