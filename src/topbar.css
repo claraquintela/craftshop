@@ -10,7 +10,7 @@
     min-height: 130px;
     width: 100%;
     background-color: #597f7c;
-    font-family: Georgia, serif;
+    font-family: Arial, Helvetica, sans-serif;
     margin-top: 30px;
     margin-right: 30px;
     margin-bottom: 100px;
@@ -27,4 +27,11 @@
 
 .topbar-right {
     display: flex;
+    flex-direction: initial;
+    align-items: baseline;
+}
+
+.topbar-right-text {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 60px;
 }

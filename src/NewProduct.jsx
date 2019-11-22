@@ -24,6 +24,9 @@ class UnconnectedNewProduct extends Component {
       location: evt.target.value
     });
   };
+  quantityHandler = evt => {
+    this.props.dispatch({ type: "new-quantity", quantity: evt.target.value });
+  };
   imgHandler = evt => {
     console.log("img of new product", evt.target.files[0]);
     this.props.dispatch({ type: "new-img", img: evt.target.files[0] });
@@ -41,6 +44,7 @@ class UnconnectedNewProduct extends Component {
     data.append("description", this.props.description);
     data.append("location", this.props.location);
     data.append("img", this.props.img);
+    data.append("quantity", this.props.quantity);
     let newResponse = await fetch("/new-product", {
       method: "POST",
       body: data,
@@ -59,7 +63,8 @@ class UnconnectedNewProduct extends Component {
       price: null,
       location: "",
       description: "",
-      img: null
+      img: null,
+      quantity: null
     });
     this.props.dispatch({ type: "newproduct-success" });
   };
@@ -100,6 +105,14 @@ class UnconnectedNewProduct extends Component {
             />
           </div>
           <div>
+            Quantity:
+            <input
+              type="number"
+              onChange={this.quantityHandler}
+              value={this.props.quantity}
+            />
+          </div>
+          <div>
             Add an image:
             <input type="file" onChange={this.imgHandler} />
             <input type="submit" />
@@ -115,7 +128,8 @@ let mapStateToProps = st => {
     price: st.price,
     location: st.location,
     description: st.description,
-    img: st.img
+    img: st.img,
+    quantity: st.quantity
   };
 };
 let NewProduct = connect(mapStateToProps)(UnconnectedNewProduct);

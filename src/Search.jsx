@@ -19,11 +19,13 @@ class UnconnectedSearch extends Component {
     data.append("search", this.props.query);
     data.append("minPrice", this.props.minPrice);
     data.append("maxPrice", this.props.maxPrice);
+    data.append("quantity", this.props.inStock);
     console.log(
       "search",
       this.props.query,
       this.props.minPrice,
-      this.props.maxPrice
+      this.props.maxPrice,
+      this.props.quantity
     );
     let response = await fetch("/search", {
       method: "POST",
@@ -119,7 +121,7 @@ let mapStateToProps = st => {
     query: st.searchQuery,
     minPrice: st.minimum,
     maxPrice: st.maximum,
-    inStock: st.inStock,
+    quantity: st.quantity,
     displayAdvancedSearch: st.displayAdvancedSearch
   };
 };

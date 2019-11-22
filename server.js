@@ -31,13 +31,11 @@ MongoClient.connect(
 ); // Needed for the HTML and JS files
 app.use("/", express.static("public")); // Needed for local assets
 app.get("/allusers", (req, res) => {
-  console.log("request to /allusers");
   dbo
     .collection("users")
     .find({})
     .toArray((err, user) => {
       if (err) {
-        console.log("err", err);
         res.send(
           JSON.stringify({
             success: false
@@ -45,7 +43,6 @@ app.get("/allusers", (req, res) => {
         );
         return;
       }
-      console.log("users", user);
       res.send(
         JSON.stringify({
           user
@@ -54,13 +51,11 @@ app.get("/allusers", (req, res) => {
     });
 });
 app.get("/allproducts", (req, res) => {
-  console.log("request to /allproducts");
   dbo
     .collection("products")
     .find({})
     .toArray((err, products) => {
       if (err) {
-        console.log("error", err);
         res.send(
           JSON.stringify({
             success: false
@@ -69,14 +64,12 @@ app.get("/allproducts", (req, res) => {
         return;
       }
 
-      products = products.slice(-4);
-      console.log("products", products);
+      products = products.slice(-12);
       res.send(JSON.stringify(products));
     });
 });
 
 app.post("/signup", upload.none(), (req, res) => {
-  console.log("signup", req.body);
   let name = req.body.username;
   let pwd = req.body.password;
   dbo.collection("users").findOne(
@@ -85,7 +78,6 @@ app.post("/signup", upload.none(), (req, res) => {
     },
     (err, user) => {
       if (err) {
-        console.log("/signup error", err);
         res.send(
           JSON.stringify({
             success: false
@@ -119,7 +111,6 @@ app.post("/signup", upload.none(), (req, res) => {
 });
 
 app.post("/login", upload.none(), (req, res) => {
-  console.log("login", req.body);
   let name = req.body.username;
   let password = req.body.password;
   dbo.collection("users").findOne(
@@ -128,7 +119,6 @@ app.post("/login", upload.none(), (req, res) => {
     },
     (err, user) => {
       if (err) {
-        console.log("/login error", err);
         res.send(
           JSON.stringify({
             success: false
@@ -146,7 +136,6 @@ app.post("/login", upload.none(), (req, res) => {
       }
       if (user.password === password) {
         let sessionId = generateId();
-        console.log("generated id", sessionId);
         sessions[sessionId] = name;
         res.cookie("sid", sessionId);
         res.send(
@@ -170,10 +159,11 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
-  console.log("search hit ", req.body.search, req.body.minPrice);
+  console.log("inStock test", req.body.quantity);
   let search = req.body.search;
   let minPrice = req.body.minPrice;
   let maxPrice = req.body.maxPrice;
+  let quantity = req.body.quantity;
   dbo
     .collection("products")
     .find({
@@ -184,7 +174,6 @@ app.post("/search", upload.none(), (req, res) => {
     })
     .toArray((err, items) => {
       if (err) {
-        console.log("/search error", err);
         res.send(
           JSON.stringify({
             success: false
@@ -196,7 +185,8 @@ app.post("/search", upload.none(), (req, res) => {
       items = items.filter(item => {
         return (
           Number(item.price) > Number(minPrice) &&
-          Number(item.price) < Number(maxPrice)
+          Number(item.price) < Number(maxPrice) &&
+          Number(quantity) > 0
         );
       });
       res.send(
@@ -210,22 +200,21 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
-  console.log("request to /new-product. body: ", req.body);
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
-  console.log("username", username);
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;
-  console.log("files", req.file);
+  let quantity = req.body.quantity;
   let file = req.file;
   let imgPath = "/uploads/" + file.filename;
   dbo.collection("products").insertOne({
     description: description,
     image: imgPath,
     username: username,
-    price: Number(price),
-    title: title
+    price: price,
+    title: title,
+    quantity: quantity
   });
   res.send(
     JSON.stringify({
@@ -235,19 +224,30 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   return;
 });
 app.get("/allproducts", (req, res) => {
-  console.log("request to /allproducts");
   dbo
     .collection("products")
     .find({})
     .toArray((err, ps) => {
       if (err) {
-        console.log("error", err);
         res.send("fail");
         return;
       }
-      console.log("products", ps);
       res.send(JSON.stringify(ps));
     });
+});
+app.post("/logout", upload.none(), (req, res) => {
+  console.log("***I'm trying to logout!");
+  let sessionId = req.cookies.sid;
+  let username = sessions[sessionId];
+  console.log("username for logout", username);
+  if (username === undefined) {
+    res.send(JSON.stringify({ success: false }));
+    return;
+  }
+  delete username;
+  res.cookie("sid", 0, { expires: -1 });
+  res.send(JSON.stringify({ success: true }));
+  return;
 });
 
 // Your endpoints go before this line

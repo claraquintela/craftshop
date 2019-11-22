@@ -24,7 +24,7 @@ class UnconnectedMainPage extends Component {
                     {item.title}
                     <div></div>
                   </Link>
-                  {item.description}
+                  $ {item.price}
                 </div>
               );
             })}
