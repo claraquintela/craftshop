@@ -42,7 +42,7 @@ class UnconnectedItemDescription extends Component {
   };
 
   render() {
-    console.log("this.props.users", this.props.users);
+    console.log("this.props.users", this.props.user);
     return (
       <div>
         <img height="300px" width="400px" src={this.props.item.image} />

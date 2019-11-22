@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class UnconnectedNewProduct extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      
+    }
+  }
   titleHandler = evt => {
     this.props.dispatch({ type: "new-title", title: evt.target.value });
   };
