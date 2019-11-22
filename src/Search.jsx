@@ -68,7 +68,7 @@ class UnconnectedSearch extends Component {
       inStock: evt.target.checked
     });
   };
-  submitClearHandler = () => {
+  submitClearHandler = evt => {
     this.setState({
       searchQuery: "",
       minPrice: 0,
@@ -76,6 +76,7 @@ class UnconnectedSearch extends Component {
       quantity: undefined,
       inStock: undefined
     });
+    this.props.dispatch({ type: "clearSearch" });
   };
   displayAdvancedSearch = () => {
     if (!this.state.displayAdvancedSearch) {
@@ -90,6 +91,7 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMinimumPrice}
               placeholder="0"
+              value={this.state.minPrice}
             />
           </div>
           <div>
@@ -98,11 +100,16 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMaximumPrice}
               placeholder="100000"
+              value={this.state.maxPrice}
             />
           </div>
           <div>
             Item in stock
-            <input type="checkbox" onChange={this.clickInStock} />
+            <input
+              type="checkbox"
+              onChange={this.clickInStock}
+              value={this.state.inStock}
+            />
           </div>
           <div>
             <button onClick={this.submitClearHandler}>Clear search</button>

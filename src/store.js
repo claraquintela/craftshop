@@ -32,7 +32,8 @@ let reducer = (state, action) => {
   if (action.type === "search-results") {
     return {
       ...state,
-      searchResults: action.searchResults
+      searchResults: action.searchResults,
+      hasSearched: true
     };
   }
   if (action.type === "new-title") {
@@ -86,6 +87,10 @@ let reducer = (state, action) => {
       displayAdvancedSearch: !state.displayAdvancedSearch
     };
   }
+  if (action.type === "clearSearch") {
+    return { ...state, searchResults: [], hasSearched: false };
+  }
+
   if (action.type === "deleteCartItem") {
     console.log("action", action.cart);
     return {
@@ -112,7 +117,8 @@ let store = createStore(
     location: "",
     description: "",
     img: null,
-    newProductUpload: false
+    newProductUpload: false,
+    hasSearched: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
