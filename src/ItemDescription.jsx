@@ -18,8 +18,8 @@ class UnconnectedItemDescription extends Component {
     let data = new FormData();
     console.log("review submitted", evt.target.value)
     data.append("review", evt.target.value )
-    data.append("item id", this.props.products._id)
-    data.append("reviewer id", this.props.users._id)
+    data.append("item-id", this.props.products._id)
+    data.append("reviewer-id", this.props.users._id)
     let response = await fetch('/submitReview', {method: "POST", body: data})
     let responseBody = await response.text();
     console.log("response body from submitReview", responseBody)

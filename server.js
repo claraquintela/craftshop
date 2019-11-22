@@ -250,6 +250,24 @@ app.post("/logout", upload.none(), (req, res) => {
   return;
 });
 
+app.post("/submitReview", upload.none(), (req, res) => {
+  console.log("submitReview server hit");
+  let review = req.body.review;
+  let reviewer = req.body.review;
+  let reviewedItem = req.body.id_;
+  dbo.collection("reviews").insertOne({
+    review: review,
+    reviewerId: reviewer,
+    reviewedItemId: reviewedItem
+  });
+  res.send(
+    JSON.stringify({
+      success: true
+    })
+  );
+  return;
+});
+
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {
