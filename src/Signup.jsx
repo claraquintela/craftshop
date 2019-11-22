@@ -21,7 +21,7 @@ class UnconnectedSignup extends Component {
   signupSubmitHandler = async event => {
     event.preventDefault();
     let data = new FormData();
-    console.log("signup form submitted");
+   
     data.append("username", this.state.username);
     data.append("password", this.state.password);
     let response = await fetch("/signup", {
@@ -29,9 +29,9 @@ class UnconnectedSignup extends Component {
       body: data
     });
     let responseBody = await response.text();
-    console.log("responseBody from signup", responseBody);
+    
     let body = JSON.parse(responseBody);
-    console.log("parsed body", body);
+   
     if (!body.success) {
       alert("Signup failed! This crafty username is taken, choose another!");
       return;

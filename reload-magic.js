@@ -80,7 +80,7 @@ const cmd = /^win/.test(process.platform) ? 'npx.cmd' : 'npx'
 let webpack = spawn(cmd, ['webpack', '--watch', '--display', 'errors-only'])
 webpack.stdout.on('data', data => {
     webpackError = data.toString()
-    console.log('error found')
+    
 })
 
 

@@ -23,7 +23,7 @@ let reducer = (state, action) => {
     };
   }
   if (action.type === "set-users") {
-    console.log("action.users", action.users);
+   
     return {
       ...state,
       users: action.users
@@ -92,7 +92,7 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "deleteCartItem") {
-    console.log("action", action.cart);
+   
     return {
       ...state,
       cart: action.cart

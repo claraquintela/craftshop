@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 class UnconnectedUsers extends Component {
   render() {
-    console.log("USERS WORK ALREADY", this.props.user);
+  
     return (
       <div>
         <div>
