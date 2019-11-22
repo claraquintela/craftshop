@@ -8,6 +8,7 @@ class UnconnectedTopBar extends Component {
   logoutHandler = evt => {
     evt.preventDefault();
     this.props.dispatch({ type: "logout" });
+    alert("You have logged out. Happy crafting!");
   };
   render = () => {
     return (
