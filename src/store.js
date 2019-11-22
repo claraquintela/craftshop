@@ -4,7 +4,8 @@ let reducer = (state, action) => {
   if (action.type === "logout") {
     return {
       ...state,
-      login: false
+      login: false,
+      username: ""
     };
   }
   if (action.type === "login-success") {
