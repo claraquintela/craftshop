@@ -1,47 +1,48 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import "./search.css";
+import { ETIME } from "constants";
 
 class UnconnectedSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayAdvancedSearch: false,
-      
+      searchQuery: "",
+      minPrice: 0,
+      maxPrice: 1000000000,
+      quantity: undefined,
+      inStock: undefined
     };
   }
   onQueryChange = evt => {
-    this.props.dispatch({ type: "query", q: evt.target.value });
+    this.setState({ searchQuery: evt.target.value });
   };
   handleMinimumPrice = evt => {
-    console.log(evt.target.value);
-
-    this.props.dispatch({
-      type: "minimum-price",
-      price: parseInt(evt.target.value)
+    this.setState({
+      minPrice: evt.target.value
     });
   };
   handleMaximumPrice = evt => {
-    this.props.dispatch({
-      type: "maximum-price",
-      price: parseInt(evt.target.value)
+    this.setState({
+      maxPrice: evt.target.value
     });
   };
   handleSubmit = async evt => {
     evt.preventDefault();
     let data = new FormData();
-    data.append("search", this.props.query);
-    data.append("minPrice", this.props.minPrice);
-    data.append("maxPrice", this.props.maxPrice);
-    data.append("inStock", this.props.inStock);
-    data.append("quantity", this.props.quantity);
+    data.append("search", this.state.searchQuery);
+    data.append("minPrice", this.state.minPrice);
+    data.append("maxPrice", this.state.maxPrice);
+    data.append("inStock", this.state.inStock);
+    data.append("quantity", this.state.quantity);
     console.log(
       "search",
-      this.props.query,
-      this.props.minPrice,
-      this.props.maxPrice,
-      this.props.quantity,
-      this.props.inStock
+      this.state.searchQuery,
+      this.state.minPrice,
+      this.state.maxPrice,
+      this.state.quantity,
+      this.state.inStock
     );
     let response = await fetch("/search", {
       method: "POST",
@@ -63,13 +64,18 @@ class UnconnectedSearch extends Component {
     this.setState({ displayAdvancedSearch: !disp });
   };
   clickInStock = evt => {
-    this.props.dispatch({
-      type: "inStock",
+    this.setState({
       inStock: evt.target.checked
     });
   };
   submitClearHandler = () => {
-    this.props.dispatch({ type: "clearSearch" });
+    this.setState({
+      searchQuery: "",
+      minPrice: 0,
+      maxPrice: 1000000000,
+      quantity: undefined,
+      inStock: undefined
+    });
   };
   displayAdvancedSearch = () => {
     if (!this.state.displayAdvancedSearch) {
@@ -115,7 +121,7 @@ class UnconnectedSearch extends Component {
               type="search"
               className="search-field"
               onChange={this.onQueryChange}
-              value={this.props.query}
+              value={this.state.searchQuery}
               placeholder="I'm looking for..."
             />
             <input type="submit" value="search" className="search-button" />
@@ -134,13 +140,7 @@ class UnconnectedSearch extends Component {
 let mapStateToProps = st => {
   return {
     products: st.products,
-    searchResults: st.searchResults,
-    query: st.searchQuery,
-    minPrice: st.minimum,
-    maxPrice: st.maximum,
-    quantity: st.quantity,
-    inStock: st.inStock,
-    displayAdvancedSearch: st.displayAdvancedSearch
+    searchResults: st.searchResults
   };
 };
 

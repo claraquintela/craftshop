@@ -53,7 +53,7 @@ class UnconnectedItemDescription extends Component {
         </div>
         <div>
           <b>Seller:</b>
-          <Link to={"/users/" + this.props.users._id}>
+          <Link to={"/userPage/" + this.props.users._id}>
             {this.props.users.username}
           </Link>
         </div>

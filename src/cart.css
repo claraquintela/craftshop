@@ -15,6 +15,8 @@
     border-radius: 5px;
     width: 300px;
     color: #597f7c;
+    box-shadow: 3px 8px 6px #597f7c;
+    background-color: #e6f6f5;
 }
 
 .cart-text {

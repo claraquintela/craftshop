@@ -15,24 +15,7 @@ let reducer = (state, action) => {
       username: action.username
     };
   }
-  if (action.type === "query") {
-    return {
-      ...state,
-      searchQuery: action.q
-    };
-  }
-  if (action.type === "minimum-price") {
-    return {
-      ...state,
-      minimum: action.price
-    };
-  }
-  if (action.type === "maximum-price") {
-    return {
-      ...state,
-      maximum: action.price
-    };
-  }
+
   if (action.type === "set-products") {
     return {
       ...state,
@@ -97,9 +80,6 @@ let reducer = (state, action) => {
       cart: state.cart.concat(action.added)
     };
   }
-  if (action.type === "inStock") {
-    return { ...state, inStock: action.inStock };
-  }
   if (action.type === "toggleAdvancedSearch") {
     return {
       ...state,
@@ -114,15 +94,6 @@ let reducer = (state, action) => {
     };
   }
 
-  if (action.type === "clearSearch") {
-    return {
-      searchQuery: "",
-      minimum: 0,
-      maximum: 1000000000,
-      inStock: undefined
-    };
-  }
-
   return state;
 };
 
@@ -134,11 +105,6 @@ let store = createStore(
     users: [],
     username: "",
     login: false,
-    searchQuery: "",
-    minimum: 0,
-    maximum: 1000000000,
-    quantity: undefined,
-    inStock: undefined,
     reviews: [],
     cart: [],
     title: "",
@@ -146,8 +112,7 @@ let store = createStore(
     location: "",
     description: "",
     img: null,
-    newProductUpload: false,
-    displayAdvancedSearch: false
+    newProductUpload: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
