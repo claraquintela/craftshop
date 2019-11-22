@@ -64,7 +64,7 @@ app.get("/allproducts", (req, res) => {
         return;
       }
 
-      products = products.slice(-4);
+      products = products.slice(-12);
       res.send(JSON.stringify(products));
     });
 });
@@ -159,6 +159,7 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
+  console.log("inStock test", req.body.quantity);
   let search = req.body.search;
   let minPrice = req.body.minPrice;
   let maxPrice = req.body.maxPrice;
@@ -204,14 +205,16 @@ app.post("/new-product", upload.single("img"), (req, res) => {
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;
+  let quantity = req.body.quantity;
   let file = req.file;
   let imgPath = "/uploads/" + file.filename;
   dbo.collection("products").insertOne({
     description: description,
     image: imgPath,
     username: username,
-    price: Number(price),
-    title: title
+    price: price,
+    title: title,
+    quantity: quantity
   });
   res.send(
     JSON.stringify({
@@ -244,6 +247,24 @@ app.post("/logout", upload.none(), (req, res) => {
   delete username;
   res.cookie("sid", 0, { expires: -1 });
   res.send(JSON.stringify({ success: true }));
+  return;
+});
+
+app.post("/submitReview", upload.none(), (req, res) => {
+  console.log("submitReview server hit");
+  let review = req.body.review;
+  let reviewer = req.body.review;
+  let reviewedItem = req.body.id_;
+  dbo.collection("reviews").insertOne({
+    review: review,
+    reviewerId: reviewer,
+    reviewedItemId: reviewedItem
+  });
+  res.send(
+    JSON.stringify({
+      success: true
+    })
+  );
   return;
 });
 

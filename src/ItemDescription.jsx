@@ -12,6 +12,26 @@ class UnconnectedItemDescription extends Component {
     });
   };
 
+  submitReview = async evt => {
+    evt.preventDefault();
+    this.props.dispatch({ type: "reviewSubmitted", review: evt.target.value });
+    let data = new FormData();
+    console.log("review submitted", evt.target.value);
+    data.append("review", evt.target.value);
+    data.append("item-id", this.props.products._id);
+    data.append("reviewer-id", this.props.users._id);
+    let response = await fetch("/submitReview", { method: "POST", body: data });
+    let responseBody = await response.text();
+    console.log("response body from submitReview", responseBody);
+    let body = JSON.parse(responseBody);
+    console.log("parsed body", body);
+    if (!body.success) {
+      alert("Review submit failed! Sorry!");
+      return;
+    }
+    alert("Review submitted successfully! Thanks!");
+  };
+
   render() {
     console.log("this.props.item.image", this.props.item.image);
     return (
@@ -24,8 +44,8 @@ class UnconnectedItemDescription extends Component {
         </div>
         <div>
           <b>Seller:</b>
-          <Link to={"/users/" + this.props.item.username}>
-            {this.props.item.username}
+          <Link to={"/users/" + this.props.users._id}>
+            {this.props.users.username}
           </Link>
         </div>
 
@@ -35,7 +55,7 @@ class UnconnectedItemDescription extends Component {
         </div>
         <div>
           <b>Remaining:</b>
-          {this.props.item.remaining}
+          {this.props.item.quantity}
         </div>
         <div>
           <b>Description of product:</b>
@@ -48,6 +68,12 @@ class UnconnectedItemDescription extends Component {
         <form onSubmit={this.submitHandler}>
           <input type="submit" value="add to cart" />
         </form>
+        <div>
+          Want to review this item? Do it here!
+          <form onSubmit="submitReview">
+            <input type="text" height="500px" width="500px" />
+          </form>
+        </div>
       </div>
     );
   }
@@ -56,7 +82,8 @@ let mapStateToProps = state => {
   return {
     products: state.products,
     reviews: state.reviews,
-    users: state.users
+    users: state.users,
+    displayReviews: state.displayReviews
   };
 };
 let ItemDescription = connect(mapStateToProps)(UnconnectedItemDescription);

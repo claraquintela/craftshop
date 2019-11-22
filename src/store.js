@@ -70,6 +70,9 @@ let reducer = (state, action) => {
       location: action.location
     };
   }
+  if (action.type === "new-quantity") {
+    return { ...state, quantity: action.quantity };
+  }
   if (action.type === "new-price") {
     return {
       ...state,
@@ -94,6 +97,9 @@ let reducer = (state, action) => {
       cart: state.cart.concat(action.added)
     };
   }
+  if (action.type === "inStock") {
+    return { ...state, inStock: action.inStock };
+  }
   if (action.type === "toggleAdvancedSearch") {
     return {
       ...state,
@@ -107,12 +113,7 @@ let reducer = (state, action) => {
       cart: action.cart
     };
   }
-  if (action.type === "productInStock") {
-    return {
-      ...state,
-      inStock: action.inStock
-    };
-  }
+
   if (action.type === "clearSearch") {
     return {
       ...state,
@@ -137,6 +138,7 @@ let store = createStore(
     searchQuery: "",
     minimum: 0,
     maximum: 1000000000,
+    quantity: 0,
     inStock: undefined,
     reviews: [],
     cart: [],

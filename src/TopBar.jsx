@@ -8,6 +8,7 @@ class UnconnectedTopBar extends Component {
   logoutHandler = evt => {
     fetch("/logout", { method: POST, body: "", creditals: "include" });
     this.props.dispatch({ type: "logout" });
+    alert("You have logged out. Happy crafting!");
   };
 
   notLoggedIn = () => {
