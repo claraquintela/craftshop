@@ -159,11 +159,13 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
-  console.log("inStock test", req.body.quantity);
+  console.log("inStock test", req.body.inStock);
   let search = req.body.search;
   let minPrice = req.body.minPrice;
   let maxPrice = req.body.maxPrice;
   let quantity = req.body.quantity;
+  let inStock = req.body.inStock;
+  let filteredItems = undefined;
   dbo
     .collection("products")
     .find({
@@ -181,20 +183,41 @@ app.post("/search", upload.none(), (req, res) => {
         );
         return;
       }
-
-      items = items.filter(item => {
-        return (
-          Number(item.price) > Number(minPrice) &&
-          Number(item.price) < Number(maxPrice) &&
-          Number(quantity) > 0
+      if (inStock) {
+        filteredItems = items.filter(item => {
+          console.log("items", item.price, item.quantity);
+          return (
+            Number(item.price) >= Number(minPrice) &&
+            Number(item.price) <= Number(maxPrice) &&
+            Number(item.quantity) > 0
+          );
+        });
+        console.log("filtereditems in stock true", filteredItems);
+        res.send(
+          JSON.stringify({
+            success: true,
+            items: filteredItems
+          })
         );
-      });
-      res.send(
-        JSON.stringify({
-          success: true,
-          items: items
-        })
-      );
+        return;
+      }
+      {
+        filteredItems = items.filter(item => {
+          console.log("items", item.price, item.quantity);
+          return (
+            Number(item.price) >= Number(minPrice) &&
+            Number(item.price) <= Number(maxPrice)
+          );
+        });
+        console.log("filtereditems", filteredItems);
+        res.send(
+          JSON.stringify({
+            success: true,
+            items: filteredItems
+          })
+        );
+      }
+
       return;
     });
 });
