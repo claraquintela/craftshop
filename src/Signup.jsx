@@ -38,7 +38,10 @@ class UnconnectedSignup extends Component {
     }
     alert("Signup is successful! Welcome to CraftyPeople!!");
     this.setState({ username: "", password: "" });
-    this.props.dispatch({ type: "login-success" });
+    this.props.dispatch({
+      type: "login-success",
+      username: this.state.username
+    });
     this.setState({ redirect: true });
   };
   render() {

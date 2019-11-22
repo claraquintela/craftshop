@@ -43,6 +43,7 @@ class UnconnectedLogin extends Component {
       type: "login-success",
       username: this.state.username
     });
+
     alert("login successful");
     this.setState({ redirect: true });
   };
