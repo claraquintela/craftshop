@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import "./newproduct.css";
 
 class UnconnectedNewProduct extends Component {
   titleHandler = evt => {
@@ -62,53 +63,70 @@ class UnconnectedNewProduct extends Component {
   };
   render() {
     return (
-      <div>
-        Sell Products:
-        <form onSubmit={this.submitHandler}>
-          <div>
-            Item title:
-            <input
-              type="text"
-              onChange={this.titleHandler}
-              value={this.props.title}
-            />
+      <div className="container">
+        <img
+          src="http://claraquintela.com/wp-content/uploads/2019/11/Sell_title.png"
+          className="shopping-cart-title"
+        />
+        <div className="container-newproduct">
+          <div className="sell-text">Sell Products: </div>
+          <form onSubmit={this.submitHandler} className="sell-form">
+            <div>
+              Item title:
+              <input
+                type="text"
+                onChange={this.titleHandler}
+                value={this.props.title}
+              />
+            </div>
+            <div>
+              Item Price:
+              <input
+                type="number"
+                onChange={this.priceHandler}
+                value={this.props.price}
+              />
+            </div>
+            <div>
+              Item description:
+              <input
+                type="text"
+                onChange={this.descriptionHandler}
+                value={this.props.description}
+              />
+            </div>
+            <div>
+              Location of item:
+              <input
+                type="text"
+                onChange={this.locationHandler}
+                value={this.props.location}
+              />
+            </div>
+            <div>
+              Quantity of item:
+              <input
+                type="number"
+                onChange={this.quantityHandler}
+                value={this.props.quantity}
+              />
+            </div>
+          </form>
+          <div className="image-container">
+            {this.props.img && (
+              <img
+                src={window.URL.createObjectURL(this.props.img)}
+                className="image-preview"
+              />
+            )}
           </div>
-          Item Price:
-          <input
-            type="number"
-            onChange={this.priceHandler}
-            value={this.props.price}
-          />
-          <div>
-            Item description:
-            <input
-              type="text"
-              onChange={this.descriptionHandler}
-              value={this.props.description}
-            />
-          </div>
-          <div>
-            Location of item:
-            <input
-              type="text"
-              onChange={this.locationHandler}
-              value={this.props.location}
-            />
-          </div>
-          <div>
-            Quantity of item:
-            <input
-              type="number"
-              onChange={this.quantityHandler}
-              value={this.props.quantity}
-            />
-          </div>
-          <div>
-            Add an image:
+          <div className="button">
             <input type="file" onChange={this.imgHandler} />
-            <input type="submit" />
           </div>
-        </form>
+          <div className="button">
+            <button onClick={this.submitHandler}>Submit</button>
+          </div>
+        </div>
       </div>
     );
   }

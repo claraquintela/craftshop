@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.container-newproduct {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    border: 1px dotted #597f7c;
+    border-radius: 5px;
+    width: 300px;
+    color: #597f7c;
+    box-shadow: 3px 8px 6px #597f7c;
+    background-color: #e6f6f5;
+}
+
+.sell-text {
+    font-weight: bold;
+    margin: 10px
+}
+
+.sell-form {
+    margin: 5px;
+}
+
+.sell-form div {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.button {
+    display: block;
+}
+
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+
+}
