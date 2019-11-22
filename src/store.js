@@ -97,6 +97,9 @@ let reducer = (state, action) => {
       cart: state.cart.concat(action.added)
     };
   }
+  if (action.type === "inStock") {
+    return { ...state, inStock: action.inStock };
+  }
   if (action.type === "toggleAdvancedSearch") {
     return {
       ...state,
@@ -136,7 +139,7 @@ let store = createStore(
     minimum: 0,
     maximum: 1000000000,
     quantity: 0,
-    inStock: null,
+    inStock: undefined,
     reviews: [],
     cart: [],
     title: "",

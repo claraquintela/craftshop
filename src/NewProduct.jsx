@@ -3,22 +3,18 @@ import { connect } from "react-redux";
 
 class UnconnectedNewProduct extends Component {
   titleHandler = evt => {
-    console.log("title of new product", evt.target.value);
     this.props.dispatch({ type: "new-title", title: evt.target.value });
   };
   priceHandler = evt => {
-    console.log("price of new product", evt.target.number);
     this.props.dispatch({ type: "new-price", price: evt.target.value });
   };
   descriptionHandler = evt => {
-    console.log("description of new product", evt.target.value);
     this.props.dispatch({
       type: "new-description",
       description: evt.target.value
     });
   };
   locationHandler = evt => {
-    console.log("location of new product", evt.target.value);
     this.props.dispatch({
       type: "new-location",
       location: evt.target.value
@@ -28,16 +24,13 @@ class UnconnectedNewProduct extends Component {
     this.props.dispatch({ type: "new-quantity", quantity: evt.target.value });
   };
   imgHandler = evt => {
-    console.log("img of new product", evt.target.files[0]);
     this.props.dispatch({ type: "new-img", img: evt.target.files[0] });
   };
   submitHandler = async evt => {
     evt.preventDefault();
-    console.log(this.props.img);
     if (this.props.img === undefined) {
       alert("Please add photo to sell your product");
     }
-    console.log("product form submitted");
     let data = new FormData();
     data.append("title", this.props.title);
     data.append("price", this.props.price);
@@ -52,7 +45,6 @@ class UnconnectedNewProduct extends Component {
     });
     let newResponseBody = await newResponse.text();
     let newBody = JSON.parse(newResponseBody);
-    console.log("JSON PARSE for new product", newBody);
     if (!newBody.success) {
       alert("Upload failed, try again");
       return;
@@ -69,7 +61,6 @@ class UnconnectedNewProduct extends Component {
     this.props.dispatch({ type: "newproduct-success" });
   };
   render() {
-    console.log("users new product form");
     return (
       <div>
         Sell Products:
@@ -105,7 +96,7 @@ class UnconnectedNewProduct extends Component {
             />
           </div>
           <div>
-            Quantity:
+            Quantity of item:
             <input
               type="number"
               onChange={this.quantityHandler}
