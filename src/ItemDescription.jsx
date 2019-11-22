@@ -4,6 +4,15 @@ import { Link } from "react-router-dom";
 import "./app.css";
 
 class UnconnectedItemDescription extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      review: ""
+    };
+  }
+  reviewHandler = evt => {
+    this.setState({ review: evt.target.value });
+  };
   submitHandler = evt => {
     evt.preventDefault();
     this.props.dispatch({
@@ -14,10 +23,9 @@ class UnconnectedItemDescription extends Component {
 
   submitReview = async evt => {
     evt.preventDefault();
-    this.props.dispatch({ type: "reviewSubmitted", review: evt.target.value });
     let data = new FormData();
-    console.log("review submitted", evt.target.value);
-    data.append("review", evt.target.value);
+    console.log("review submitted", this.state.review);
+    data.append("review", this.state.review);
     data.append("item-id", this.props.products._id);
     data.append("reviewer-id", this.props.users._id);
     let response = await fetch("/submitReview", { method: "POST", body: data });
@@ -30,6 +38,7 @@ class UnconnectedItemDescription extends Component {
       return;
     }
     alert("Review submitted successfully! Thanks!");
+    this.setState({ review: "" });
   };
 
   render() {
@@ -51,11 +60,11 @@ class UnconnectedItemDescription extends Component {
 
         <div>
           <b>Price:</b>
-          {this.props.item.price}
+          {Number(this.props.item.price)}
         </div>
         <div>
           <b>Remaining:</b>
-          {this.props.item.quantity}
+          {Number(this.props.item.quantity)}
         </div>
         <div>
           <b>Description of product:</b>
@@ -70,8 +79,15 @@ class UnconnectedItemDescription extends Component {
         </form>
         <div>
           Want to review this item? Do it here!
-          <form onSubmit="submitReview">
-            <input type="text" height="500px" width="500px" />
+          <form onSubmit={this.submitReview}>
+            <input
+              type="text"
+              onChange={this.reviewHandler}
+              value={this.state.review}
+              height="500px"
+              width="500px"
+            />
+            <input type="submit" value="submit your review" />
           </form>
         </div>
       </div>

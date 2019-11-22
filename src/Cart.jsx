@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import "./cart.css";
 
 class UnconnectedCart extends Component {
   deleteItem = index => {
@@ -19,27 +20,38 @@ class UnconnectedCart extends Component {
       cartTotal = cartTotal + parseInt(items.price);
     });
     return (
-      <div>
-        These are the items in your cart:
-        {this.props.cart.map((items, index) => (
+      <div className="container">
+        <img
+          src="http://claraquintela.com/wp-content/uploads/2019/11/Shopping-cart_title.png"
+          className="shopping-cart-title"
+        />
+        <div className="container-cart">
+          <div className="cart-text">These are the items in your cart:</div>
+          {this.props.cart.map((items, index) => (
+            <div className="sub-container-cart">
+              <div className="cart-item-text">
+                {items.title} {parseInt(items.price) + "$"}{" "}
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    this.deleteItem(index);
+                  }}
+                >
+                  <input type="submit" value="delete" />
+                </form>
+              </div>
+
+              <img src={items.image} className="item-thumb" />
+            </div>
+          ))}
           <div>
-            {items.title}
-            {parseInt(items.price) + "$"}
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                this.deleteItem(index);
-              }}
-            >
-              <input type="submit" value="delete" />
-            </form>
+            <div className="total">total:{cartTotal + "$"}</div>
+            <div className="button">
+              <form onSubmit="handleCheckout">
+                <input type="submit" value="Proceed to checkout" />
+              </form>
+            </div>
           </div>
-        ))}
-        <div>
-          <div>total:{cartTotal + "$"}</div>
-          <form onSubmit="handleCheckout">
-            <input type="submit" value="Proceed to checkout" />
-          </form>
         </div>
       </div>
     );
