@@ -5,10 +5,7 @@ import "./mainpage.css";
 
 class UnconnectedMainPage extends Component {
   render = () => {
-    if (
-      this.props.searchResults.length === 0 &&
-      this.props.searchQuery === ""
-    ) {
+    if (this.props.searchResults.length === 0) {
       return (
         <div className="container-mainpage">
           <div>
