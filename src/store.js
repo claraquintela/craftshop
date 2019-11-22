@@ -123,6 +123,7 @@ let reducer = (state, action) => {
       inStock: undefined
     };
   }
+
   return state;
 };
 
