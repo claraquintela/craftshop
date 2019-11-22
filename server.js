@@ -159,11 +159,10 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
-  console.log("inStock test", req.body.inStock);
+  console.log("inStock test", req.body.search, req.body.inStock);
   let search = req.body.search;
   let minPrice = req.body.minPrice;
   let maxPrice = req.body.maxPrice;
-  let quantity = req.body.quantity;
   let inStock = req.body.inStock;
   let filteredItems = undefined;
   dbo
@@ -183,13 +182,13 @@ app.post("/search", upload.none(), (req, res) => {
         );
         return;
       }
-      if (inStock) {
+
+      if (!inStock || inStock === undefined) {
         filteredItems = items.filter(item => {
           console.log("items", item.price, item.quantity);
           return (
             Number(item.price) >= Number(minPrice) &&
-            Number(item.price) <= Number(maxPrice) &&
-            Number(item.quantity) > 0
+            Number(item.price) <= Number(maxPrice)
           );
         });
         console.log("filtereditems in stock true", filteredItems);
@@ -206,7 +205,8 @@ app.post("/search", upload.none(), (req, res) => {
           console.log("items", item.price, item.quantity);
           return (
             Number(item.price) >= Number(minPrice) &&
-            Number(item.price) <= Number(maxPrice)
+            Number(item.price) <= Number(maxPrice) &&
+            Number(item.quantity) > 0
           );
         });
         console.log("filtereditems", filteredItems);

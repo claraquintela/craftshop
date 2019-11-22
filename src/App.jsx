@@ -52,8 +52,12 @@ class UnconnectedApp extends Component {
       console.log(item.id, itemId);
       return item._id === itemId;
     });
+    let candidate = this.props.users.filter(item => {
+      console.log("username", details[0].username);
+      return item.username === details[0].username;
+    });
     console.log("details", details);
-    return <ItemDescription item={details[0]} />;
+    return <ItemDescription item={details[0]} user={candidate[0]} />;
   };
   renderUserPage = routerData => {
     let userId = routerData.match.params._id;
