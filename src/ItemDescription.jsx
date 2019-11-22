@@ -67,15 +67,15 @@ class UnconnectedItemDescription extends Component {
   submitReview = async evt => {
     evt.preventDefault();
     let data = new FormData();
-    console.log("review submitted", this.state.review);
+   
     data.append("review", this.state.review);
     data.append("itemId", this.props.item._id);
     data.append("username", this.props.username);
     let response = await fetch("/submitReview", { method: "POST", body: data });
     let responseBody = await response.text();
-    console.log("response body from submitReview", responseBody);
+ 
     let body = JSON.parse(responseBody);
-    console.log("parsed body", body);
+  
     if (!body.success) {
       alert("Review submit failed! Sorry!");
       return;
@@ -85,7 +85,7 @@ class UnconnectedItemDescription extends Component {
   };
 
   render() {
-    console.log("this.props.users", this.props.users);
+
     return (
       <div>
         <img height="300px" width="400px" src={this.props.item.image} />

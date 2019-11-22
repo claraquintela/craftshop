@@ -36,24 +36,17 @@ class UnconnectedSearch extends Component {
     data.append("maxPrice", this.state.maxPrice);
     data.append("inStock", this.state.inStock);
     data.append("quantity", this.state.quantity);
-    console.log(
-      "search",
-      this.state.searchQuery,
-      this.state.minPrice,
-      this.state.maxPrice,
-      this.state.quantity,
-      this.state.inStock
-    );
+   
     let response = await fetch("/search", {
       method: "POST",
       body: data,
       credentials: "include"
     });
-    console.log("search response", response);
+  
     let responseBody = await response.text();
-    console.log("search response body", responseBody);
+   
     let parsed = JSON.parse(responseBody);
-    console.log("search parsed", parsed);
+   
     this.props.dispatch({
       type: "search-results",
       searchResults: parsed.items
@@ -68,7 +61,7 @@ class UnconnectedSearch extends Component {
       inStock: evt.target.checked
     });
   };
-  submitClearHandler = () => {
+  submitClearHandler = evt => {
     this.setState({
       searchQuery: "",
       minPrice: 0,
@@ -76,6 +69,7 @@ class UnconnectedSearch extends Component {
       quantity: undefined,
       inStock: undefined
     });
+    this.props.dispatch({ type: "clearSearch" });
   };
   displayAdvancedSearch = () => {
     if (!this.state.displayAdvancedSearch) {
@@ -90,6 +84,7 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMinimumPrice}
               placeholder="0"
+              value={this.state.minPrice}
             />
           </div>
           <div>
@@ -98,11 +93,16 @@ class UnconnectedSearch extends Component {
               type="number"
               onChange={this.handleMaximumPrice}
               placeholder="100000"
+              value={this.state.maxPrice}
             />
           </div>
           <div>
             Item in stock
-            <input type="checkbox" onChange={this.clickInStock} />
+            <input
+              type="checkbox"
+              onChange={this.clickInStock}
+              value={this.state.inStock}
+            />
           </div>
           <div>
             <button onClick={this.submitClearHandler}>Clear search</button>
@@ -112,7 +112,7 @@ class UnconnectedSearch extends Component {
     }
   };
   render = () => {
-    console.log("this.props.searchResults", this.props.searchResults);
+    
     return (
       <div className="topbar-search">
         <form onSubmit={this.handleSubmit}>

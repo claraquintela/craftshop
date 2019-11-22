@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 class UnconnectedUsers extends Component {
   render() {
-    console.log("USERS WORK ALREADY", this.props.user);
+  
     return (
       <div>
         <div>
@@ -13,13 +13,10 @@ class UnconnectedUsers extends Component {
         </div>
         <div>
           Products for sale:
+          {/* TODO: make work  */}
           <ul>
-            {this.props.products.map(item => {
-              return (
-                <li>
-                  <Link to={"/itemDescription/" + item._id}>{item.title}</Link>
-                </li>
-              );
+            {this.props.items.map(item => {
+              return <li>{item.title}</li>;
             })}
           </ul>
         </div>

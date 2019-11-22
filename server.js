@@ -172,7 +172,6 @@ let generateId = () => {
 };
 
 app.post("/search", upload.none(), (req, res) => {
-  console.log("inStock test", req.body.search, req.body.inStock);
   let search = req.body.search;
   let minPrice = req.body.minPrice;
   let maxPrice = req.body.maxPrice;
@@ -198,13 +197,12 @@ app.post("/search", upload.none(), (req, res) => {
 
       if (!inStock || inStock === undefined) {
         filteredItems = items.filter(item => {
-          console.log("items", item.price, item.quantity);
           return (
             Number(item.price) >= Number(minPrice) &&
             Number(item.price) <= Number(maxPrice)
           );
         });
-        console.log("filtereditems in stock true", filteredItems);
+
         res.send(
           JSON.stringify({
             success: true,
@@ -215,14 +213,13 @@ app.post("/search", upload.none(), (req, res) => {
       }
       {
         filteredItems = items.filter(item => {
-          console.log("items", item.price, item.quantity);
           return (
             Number(item.price) >= Number(minPrice) &&
             Number(item.price) <= Number(maxPrice) &&
             Number(item.quantity) > 0
           );
         });
-        console.log("filtereditems", filteredItems);
+
         res.send(
           JSON.stringify({
             success: true,
@@ -272,10 +269,9 @@ app.get("/allproducts", (req, res) => {
     });
 });
 app.post("/logout", upload.none(), (req, res) => {
-  console.log("***I'm trying to logout!");
   let sessionId = req.cookies.sid;
   let username = sessions[sessionId];
-  console.log("username for logout", username);
+
   if (username === undefined) {
     res.send(JSON.stringify({ success: false }));
     return;
@@ -287,7 +283,6 @@ app.post("/logout", upload.none(), (req, res) => {
 });
 
 app.post("/submitReview", upload.none(), (req, res) => {
-  console.log("submitReview server hit");
   let review = req.body.review;
   let reviewer = req.body.username;
   let reviewedItem = req.body.itemId;

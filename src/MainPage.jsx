@@ -9,8 +9,6 @@ class UnconnectedMainPage extends Component {
       this.props.searchResults.length > 0
         ? this.props.searchResults
         : this.props.products;
-    let userHasSearched =
-      this.props.searchQuery || this.props.minPrice || this.props.maxPrice;
 
     return (
       <div className="container-mainpage">
@@ -21,11 +19,11 @@ class UnconnectedMainPage extends Component {
           />
         </div>
         <div className="mainpage-item-grid">
-          {userHasSearched && this.props.searchResults.length === 0
+          {this.props.searchResults.length === 0 && this.props.hasSearched
             ? "No products found"
             : productsToDisplay.map(item => {
                 return (
-                  <div className="item-container">
+                  <div className="item-container" key={item._id}>
                     <Link to={"/itemDescription/" + item._id}>
                       <img src={item.image} className="mainpage-photo" />
                       <br />
@@ -45,9 +43,7 @@ let mapStateToProps = state => {
   return {
     products: state.products,
     searchResults: state.searchResults,
-    searchQuery: state.searchQuery,
-    minPrice: state.min,
-    maxPrice: state.max
+    hasSearched: state.hasSearched
   };
 };
 let MainPage = connect(mapStateToProps)(UnconnectedMainPage);
