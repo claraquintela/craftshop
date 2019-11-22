@@ -12,25 +12,25 @@ class UnconnectedItemDescription extends Component {
     });
   };
 
-  submitReview = evt => {
+  submitReview = async evt => {
     evt.preventDefault();
-    this.props.dispatch({type: "reviewSubmitted", review: evt.target.value });
+    this.props.dispatch({ type: "reviewSubmitted", review: evt.target.value });
     let data = new FormData();
-    console.log("review submitted", evt.target.value)
-    data.append("review", evt.target.value )
-    data.append("item-id", this.props.products._id)
-    data.append("reviewer-id", this.props.users._id)
-    let response = await fetch('/submitReview', {method: "POST", body: data})
+    console.log("review submitted", evt.target.value);
+    data.append("review", evt.target.value);
+    data.append("item-id", this.props.products._id);
+    data.append("reviewer-id", this.props.users._id);
+    let response = await fetch("/submitReview", { method: "POST", body: data });
     let responseBody = await response.text();
-    console.log("response body from submitReview", responseBody)
-    let body = JSON.parse(responseBody)
-    console.log("parsed body", body)
+    console.log("response body from submitReview", responseBody);
+    let body = JSON.parse(responseBody);
+    console.log("parsed body", body);
     if (!body.success) {
       alert("Review submit failed! Sorry!");
       return;
     }
     alert("Review submitted successfully! Thanks!");
-  }
+  };
 
   render() {
     console.log("this.props.item.image", this.props.item.image);
