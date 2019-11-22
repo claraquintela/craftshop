@@ -23,7 +23,7 @@ class UnconnectedMainPage extends Component {
             ? "No products found"
             : productsToDisplay.map(item => {
                 return (
-                  <div className="item-container">
+                  <div className="item-container" key={item._id}>
                     <Link to={"/itemDescription/" + item._id}>
                       <img src={item.image} className="mainpage-photo" />
                       <br />

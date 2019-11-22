@@ -19,12 +19,12 @@ class UnconnectedApp extends Component {
     let response = await fetch("/allproducts");
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
-    console.log(parsed);
+  
     this.props.dispatch({ type: "set-products", products: parsed });
     let userResponse = await fetch("/allusers");
     let userResponseBody = await userResponse.text();
     let userParsed = JSON.parse(userResponseBody);
-    console.log("user parsed", userParsed);
+  
     this.props.dispatch({ type: "set-users", users: userParsed.user });
   };
   renderMainPage = () => {
@@ -48,26 +48,29 @@ class UnconnectedApp extends Component {
   };
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;
-    let details = this.props.products.filter(item => {
-      console.log(item.id, itemId);
-      return item._id === itemId;
+    let item = this.props.products.find(item => {
+      
+      return itemId === item._id;
     });
-    let candidate = this.props.users.filter(item => {
-      console.log("username", details[0].username);
-      return item.username === details[0].username;
+   
+
+    let seller = this.props.users.find(user => {
+      return user.username === item.username;
     });
-    console.log("details", details);
-    return <ItemDescription item={details[0]} user={candidate[0]} />;
+   
+    return <ItemDescription item={item} user={seller} />;
   };
   renderUserPage = routerData => {
     let userId = routerData.match.params._id;
-    console.log("user id", userId);
-    let candidate = this.props.users.filter(user => {
-      console.log("user._id", user._id);
+    let user = this.props.users.find(user => {
       return user._id === userId;
     });
-    console.log("candidate", candidate);
-    return <Users user={candidate[0]} />;
+   
+    let items = this.props.products.filter(item => {
+      return item.username === user.username;
+    });
+   
+    return <Users user={user} items={items} />;
   };
 
   render = () => {
@@ -103,7 +106,7 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
-  console.log(state);
+
   return {
     login: state.login,
     products: state.products,

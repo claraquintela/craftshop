@@ -3,6 +3,12 @@ import { connect } from "react-redux";
 import "./newproduct.css";
 
 class UnconnectedNewProduct extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      
+    }
+  }
   titleHandler = evt => {
     this.props.dispatch({ type: "new-title", title: evt.target.value });
   };

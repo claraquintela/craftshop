@@ -21,7 +21,7 @@ class UnconnectedBottomBar extends Component {
             <div className="text_bottom">Contact</div>
             <div className="text_bottom">Work with us</div>
           </div>
-          <section class="bottombar-left">
+          <section className="bottombar-left">
             <a href="http://www.instagram.com">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/899px-Instagram_icon.png"

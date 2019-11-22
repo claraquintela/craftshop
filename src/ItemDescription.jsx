@@ -7,9 +7,21 @@ class UnconnectedItemDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      review: ""
+      review: "",
+      displayReviews: false,
+      relevantReviews: []
     };
   }
+  componentDidMount = async () => {
+    let data = new FormData();
+    data.append("ItemId", this.props.item._id);
+    let response = await fetch("/reviews", { method: "POST", body: data });
+    let responseBody = await response.text();
+    let parsed = JSON.parse(responseBody);
+    console.log("reviews", parsed);
+    this.setState(this.state.relevantReviews.concat(parsed));
+    return;
+  };
   reviewHandler = evt => {
     this.setState({ review: evt.target.value });
   };
@@ -20,19 +32,50 @@ class UnconnectedItemDescription extends Component {
       added: this.props.item
     });
   };
+  toggleReviewDisplay = () => {
+    let disp = this.state.displayReviews;
+    this.setState({ displayReview: !disp });
+  };
+  displayReview = () => {
+    if (!this.state.displayReviews) {
+      return null;
+    }
+    {
+      return (
+        <div>
+          <div>
+            <div>
+              Reviews of this item:
+              <ul>
+                {this.state.relevantReviews.map(item => {
+                  return (
+                    <li>
+                      {relevantReview.review}
+                      this review was submitted by:
+                      {relevantReview.reviewerId}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
 
   submitReview = async evt => {
     evt.preventDefault();
     let data = new FormData();
-    console.log("review submitted", this.state.review);
+   
     data.append("review", this.state.review);
     data.append("itemId", this.props.item._id);
     data.append("username", this.props.username);
     let response = await fetch("/submitReview", { method: "POST", body: data });
     let responseBody = await response.text();
-    console.log("response body from submitReview", responseBody);
+ 
     let body = JSON.parse(responseBody);
-    console.log("parsed body", body);
+  
     if (!body.success) {
       alert("Review submit failed! Sorry!");
       return;
@@ -42,7 +85,7 @@ class UnconnectedItemDescription extends Component {
   };
 
   render() {
-    console.log("this.props.users", this.props.users);
+
     return (
       <div>
         <img height="300px" width="400px" src={this.props.item.image} />
@@ -90,6 +133,7 @@ class UnconnectedItemDescription extends Component {
             <input type="submit" value="submit your review" />
           </form>
         </div>
+        <div>{this.toggleReviewDisplay()}</div>
       </div>
     );
   }
@@ -99,7 +143,6 @@ let mapStateToProps = state => {
     products: state.products,
     reviews: state.reviews,
     users: state.users,
-    displayReviews: state.displayReviews,
     username: state.username
   };
 };

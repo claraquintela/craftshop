@@ -6,9 +6,9 @@ import Search from "./Search.jsx";
 
 class UnconnectedTopBar extends Component {
   logoutHandler = evt => {
-    fetch("/logout", { method: POST, body: "", creditals: "include" });
+    fetch("/logout", { method: "POST", body: "", creditals: "include" });
     this.props.dispatch({ type: "logout" });
-    alert("You have logged out. Happy crafting!");
+    alert("You have logged out. Come back again now!");
   };
 
   notLoggedIn = () => {
@@ -101,6 +101,7 @@ class UnconnectedTopBar extends Component {
 }
 
 let mapStateToProps = state => {
+  console.log("STATE OG LOG OUT", state);
   return {
     username: state.username
   };
