@@ -26,8 +26,8 @@ class UnconnectedItemDescription extends Component {
     let data = new FormData();
     console.log("review submitted", this.state.review);
     data.append("review", this.state.review);
-    data.append("item-id", this.props.products._id);
-    data.append("reviewer-id", this.props.users._id);
+    data.append("itemId", this.props.item._id);
+    data.append("username", this.props.username);
     let response = await fetch("/submitReview", { method: "POST", body: data });
     let responseBody = await response.text();
     console.log("response body from submitReview", responseBody);
@@ -99,7 +99,8 @@ let mapStateToProps = state => {
     products: state.products,
     reviews: state.reviews,
     users: state.users,
-    displayReviews: state.displayReviews
+    displayReviews: state.displayReviews,
+    username: state.username
   };
 };
 let ItemDescription = connect(mapStateToProps)(UnconnectedItemDescription);
