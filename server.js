@@ -276,8 +276,8 @@ app.post("/logout", upload.none(), (req, res) => {
 app.post("/submitReview", upload.none(), (req, res) => {
   console.log("submitReview server hit");
   let review = req.body.review;
-  let reviewer = req.body.review;
-  let reviewedItem = req.body.id_;
+  let reviewer = req.body.username;
+  let reviewedItem = req.body.itemId;
   dbo.collection("reviews").insertOne({
     review: review,
     reviewerId: reviewer,
