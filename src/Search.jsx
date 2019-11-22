@@ -3,15 +3,29 @@ import React, { Component } from "react";
 import "./search.css";
 
 class UnconnectedSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayAdvancedSearch: false,
+      
+    };
+  }
   onQueryChange = evt => {
     this.props.dispatch({ type: "query", q: evt.target.value });
   };
   handleMinimumPrice = evt => {
     console.log(evt.target.value);
-    this.props.dispatch({ type: "minimum-price", price: evt.target.value });
+
+    this.props.dispatch({
+      type: "minimum-price",
+      price: parseInt(evt.target.value)
+    });
   };
   handleMaximumPrice = evt => {
-    this.props.dispatch({ type: "maximum-price", price: evt.target.value });
+    this.props.dispatch({
+      type: "maximum-price",
+      price: parseInt(evt.target.value)
+    });
   };
   handleSubmit = async evt => {
     evt.preventDefault();
@@ -19,13 +33,15 @@ class UnconnectedSearch extends Component {
     data.append("search", this.props.query);
     data.append("minPrice", this.props.minPrice);
     data.append("maxPrice", this.props.maxPrice);
-    data.append("quantity", this.props.inStock);
+    data.append("inStock", this.props.inStock);
+    data.append("quantity", this.props.quantity);
     console.log(
       "search",
       this.props.query,
       this.props.minPrice,
       this.props.maxPrice,
-      this.props.quantity
+      this.props.quantity,
+      this.props.inStock
     );
     let response = await fetch("/search", {
       method: "POST",
@@ -43,16 +59,20 @@ class UnconnectedSearch extends Component {
     });
   };
   toggleAdvancedSearch = () => {
-    this.props.dispatch({ type: "toggleAdvancedSearch" });
+    let disp = this.state.displayAdvancedSearch;
+    this.setState({ displayAdvancedSearch: !disp });
   };
-  clickInStock = () => {
-    this.props.dispatch({ type: "productInStock" });
+  clickInStock = evt => {
+    this.props.dispatch({
+      type: "inStock",
+      inStock: evt.target.checked
+    });
   };
   submitClearHandler = () => {
     this.props.dispatch({ type: "clearSearch" });
   };
   displayAdvancedSearch = () => {
-    if (!this.props.displayAdvancedSearch) {
+    if (!this.state.displayAdvancedSearch) {
       return null;
     }
     {
@@ -100,16 +120,13 @@ class UnconnectedSearch extends Component {
             />
             <input type="submit" value="search" className="search-button" />
           </div>
-          <div>
-            {this.displayAdvancedSearch()}
-            <button
-              onClick={this.toggleAdvancedSearch}
-              className="search-button"
-            >
-              Advanced Search
-            </button>
-          </div>
         </form>
+        <div>
+          {this.displayAdvancedSearch()}
+          <button onClick={this.toggleAdvancedSearch} className="search-button">
+            Advanced Search
+          </button>
+        </div>
       </div>
     );
   };
@@ -122,6 +139,7 @@ let mapStateToProps = st => {
     minPrice: st.minimum,
     maxPrice: st.maximum,
     quantity: st.quantity,
+    inStock: st.inStock,
     displayAdvancedSearch: st.displayAdvancedSearch
   };
 };

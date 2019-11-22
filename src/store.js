@@ -116,7 +116,6 @@ let reducer = (state, action) => {
 
   if (action.type === "clearSearch") {
     return {
-      ...state,
       searchQuery: "",
       minimum: 0,
       maximum: 1000000000,
@@ -138,7 +137,7 @@ let store = createStore(
     searchQuery: "",
     minimum: 0,
     maximum: 1000000000,
-    quantity: 0,
+    quantity: undefined,
     inStock: undefined,
     reviews: [],
     cart: [],

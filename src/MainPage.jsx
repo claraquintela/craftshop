@@ -24,7 +24,7 @@ class UnconnectedMainPage extends Component {
                     {item.title}
                     <div></div>
                   </Link>
-                  $ {item.price}
+                  $ {Number(item.price)}
                 </div>
               );
             })}
