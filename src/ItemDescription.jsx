@@ -7,9 +7,21 @@ class UnconnectedItemDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      review: ""
+      review: "",
+      displayReviews: false,
+      relevantReviews: []
     };
   }
+  componentDidMount = async () => {
+    let data = new FormData();
+    data.append("ItemId", this.props.item._id);
+    let response = await fetch("/reviews", { method: "POST", body: data });
+    let responseBody = await response.text();
+    let parsed = JSON.parse(responseBody);
+    console.log("reviews", parsed);
+    this.setState(this.state.relevantReviews.concat(parsed));
+    return;
+  };
   reviewHandler = evt => {
     this.setState({ review: evt.target.value });
   };
@@ -19,6 +31,37 @@ class UnconnectedItemDescription extends Component {
       type: "addedToCart",
       added: this.props.item
     });
+  };
+  toggleReviewDisplay = () => {
+    let disp = this.state.displayReviews;
+    this.setState({ displayReview: !disp });
+  };
+  displayReview = () => {
+    if (!this.state.displayReviews) {
+      return null;
+    }
+    {
+      return (
+        <div>
+          <div>
+            <div>
+              Reviews of this item:
+              <ul>
+                {this.state.relevantReviews.map(item => {
+                  return (
+                    <li>
+                      {relevantReview.review}
+                      this review was submitted by:
+                      {relevantReview.reviewerId}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
   };
 
   submitReview = async evt => {
@@ -90,6 +133,7 @@ class UnconnectedItemDescription extends Component {
             <input type="submit" value="submit your review" />
           </form>
         </div>
+        <div>{this.toggleReviewDisplay()}</div>
       </div>
     );
   }
@@ -99,7 +143,6 @@ let mapStateToProps = state => {
     products: state.products,
     reviews: state.reviews,
     users: state.users,
-    displayReviews: state.displayReviews,
     username: state.username
   };
 };

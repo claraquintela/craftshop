@@ -68,6 +68,19 @@ app.get("/allproducts", (req, res) => {
       res.send(JSON.stringify(products));
     });
 });
+app.post("/reviews", upload.none(), (req, res) => {
+  let itemId = req.body.itemId;
+  dbo
+    .collection("reviews")
+    .find({ reviewedItemId: itemId })
+    .toArray((err, reviews) => {
+      if (err) {
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      res.send(JSON.stringify(reviews));
+    });
+});
 
 app.post("/signup", upload.none(), (req, res) => {
   let name = req.body.username;
