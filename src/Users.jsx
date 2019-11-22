@@ -17,7 +17,7 @@ class UnconnectedUsers extends Component {
             {this.props.products.map(item => {
               return (
                 <li>
-                  <Link to={"/itemDescription/" + item._id}>{item.name}</Link>
+                  <Link to={"/itemDescription/" + item._id}>{item.title}</Link>
                 </li>
               );
             })}

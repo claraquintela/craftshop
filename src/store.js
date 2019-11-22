@@ -1,6 +1,4 @@
-import {
-  createStore
-} from "redux";
+import { createStore } from "redux";
 
 let reducer = (state, action) => {
   if (action.type === "logout") {
@@ -128,7 +126,8 @@ let reducer = (state, action) => {
 };
 
 let store = createStore(
-  reducer, {
+  reducer,
+  {
     products: [],
     searchResults: [],
     users: [],

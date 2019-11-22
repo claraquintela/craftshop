@@ -19,11 +19,13 @@ class UnconnectedSearch extends Component {
     data.append("search", this.props.query);
     data.append("minPrice", this.props.minPrice);
     data.append("maxPrice", this.props.maxPrice);
+    data.appent("quantity", this.props.inStock);
     console.log(
       "search",
       this.props.query,
       this.props.minPrice,
-      this.props.maxPrice
+      this.props.maxPrice,
+      this.props.inStock
     );
     let response = await fetch("/search", {
       method: "POST",
