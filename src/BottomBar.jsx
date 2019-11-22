@@ -26,7 +26,7 @@ class UnconnectedBottomBar extends Component {
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/899px-Instagram_icon.png"
                 height="50px"
-                nameclass="icon"
+                className="icon"
                 aria-label="login"
               />
             </a>
@@ -34,7 +34,7 @@ class UnconnectedBottomBar extends Component {
               <img
                 src="http://claraquintela.com/wp-content/uploads/2019/11/hiclipart.com-2.png"
                 height="50px"
-                nameclass="icon"
+                className="icon"
                 aria-label="signup"
               />
             </a>
@@ -42,7 +42,7 @@ class UnconnectedBottomBar extends Component {
               <img
                 src="http://claraquintela.com/wp-content/uploads/2019/11/hiclipart.com_.png"
                 height="50px"
-                nameclass="icon"
+                className="icon"
                 aria-label="shopping_cart"
               />
             </a>
