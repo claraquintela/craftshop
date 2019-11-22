@@ -12,7 +12,7 @@ class UnconnectedTopBar extends Component {
 
   notLoggedIn = () => {
     return (
-      <div>
+      <div className="topbar-right">
         <Link className="link" to="/login">
           <img
             src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
@@ -44,13 +44,15 @@ class UnconnectedTopBar extends Component {
   loggedIn = () => {
     return (
       <div className="topbar-right">
-        <img
-          src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
-          height="50px"
-          className="icon"
-          aria-label="login"
-        />
-        <div>Hello, {this.props.username} </div>
+        <div>
+          <img
+            src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
+            height="50px"
+            className="icon"
+            aria-label="login"
+          />
+          <div className="topbar-right-text">Hello, {this.props.username} </div>
+        </div>
         <Link className="link" to="/cart">
           <img
             src="http://claraquintela.com/wp-content/uploads/2019/11/shopping-cart.png"
@@ -61,9 +63,9 @@ class UnconnectedTopBar extends Component {
         </Link>
         <div onClick={this.logoutHandler}>
           <img
-            src="https://www.pngfind.com/pngs/m/339-3396821_png-file-svg-download-icon-logout-transparent-png.png"
+            src="http://claraquintela.com/wp-content/uploads/2019/11/pngfind.com-logout-button-png-3396821.png"
             align="left"
-            height="200px"
+            height="30px"
             className="topbar-image"
           />
         </div>
