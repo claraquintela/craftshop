@@ -69,6 +69,7 @@ app.get("/allproducts", (req, res) => {
     });
 });
 app.post("/reviews", upload.none(), (req, res) => {
+  console.log("review", req.body.itemId);
   let itemId = req.body.itemId;
   dbo
     .collection("reviews")
