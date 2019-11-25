@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./app.css";
+import "./itemdescription.css";
 
 class UnconnectedItemDescription extends Component {
   constructor(props) {
@@ -87,39 +88,47 @@ class UnconnectedItemDescription extends Component {
   render() {
     return (
       <div>
-        <img height="300px" width="400px" src={this.props.item.image} />
-        <h2>{this.props.item.title}</h2>
-        <div>
-          <b>Location:</b>
-          {this.props.item.location}
-        </div>
-        <div>
-          <b>Seller:</b>
-          <Link to={"/userPage/" + this.props.user._id}>
-            {this.props.user.username}
-          </Link>
-        </div>
+        <div className="box">
+          <div className="container">
+            <div>
+              <img src={this.props.item.image} className="item-image" />
+            </div>
+            <div className="product-description">
+              <h3>{this.props.item.title}</h3>
+              <div>
+                <b>Description of product: </b>
+                {this.props.item.description}
+              </div>
+              <div>
+                <b>Price: </b>
+                {Number(this.props.item.price)}$
+              </div>
+              <div>
+                <b>Remaining: </b>
+                {Number(this.props.item.quantity)}
+              </div>
 
-        <div>
-          <b>Price:</b>
-          {Number(this.props.item.price)}
+              <div>
+                <b>Seller: </b>
+                <Link to={"/userPage/" + this.props.user._id}>
+                  {this.props.user.username}
+                </Link>
+              </div>
+              <div>
+                <b>Location: </b>
+                {this.props.item.location}
+              </div>
+              <form onSubmit={this.submitHandler}>
+                <input type="submit" value="add to cart" />
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <b>Remaining:</b>
-          {Number(this.props.item.quantity)}
-        </div>
-        <div>
-          <b>Description of product:</b>
-          {this.props.item.description}
-        </div>
-        <div>
-          <b>Item Reviews:</b>
-          {this.props.item.reviews}
-        </div>
-        <form onSubmit={this.submitHandler}>
-          <input type="submit" value="add to cart" />
-        </form>
-        <div>
+        <div className="review">
+          <div>
+            <b>Item Reviews: </b>
+            {this.props.item.reviews}
+          </div>
           Want to review this item? Do it here!
           <form onSubmit={this.submitReview}>
             <input
