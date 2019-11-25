@@ -1,25 +1,34 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "./users.css";
 
 class UnconnectedUsers extends Component {
   render() {
     return (
-      <div>
-        <div>
-          <h2>Name: {this.props.user.username}</h2>
-          <div>Location:{this.props.user.location}</div>
+      <div className="grid">
+        <div className="users-all">
+          <img src={this.props.user.image} className="user-img" />
+          <div className="user-content">
+            <div>
+              <h4>Name: {this.props.user.username}</h4>
+              <div>Location:{this.props.user.location}</div>
+            </div>
+            <div>
+              Products for sale:
+              {/* TODO: make work  */}
+              <ul>
+                {this.props.items.map(item => {
+                  return <li>{item.title}</li>;
+                })}
+              </ul>
+            </div>
+            <div>
+              <Link to={"/addNewProduct/"}>Sell Your Product</Link>
+            </div>
+          </div>
         </div>
-        <div>
-          Products for sale:
-          {/* TODO: make work  */}
-          <ul>
-            {this.props.items.map(item => {
-              return <li>{item.title}</li>;
-            })}
-          </ul>
-        </div>
-        <div>
+        <div className="reviews">
           Reviews of products:
           <ul>
             {this.props.reviews.map(review => {
@@ -32,9 +41,6 @@ class UnconnectedUsers extends Component {
               );
             })}
           </ul>
-        </div>
-        <div>
-          <Link to={"/addNewProduct/"}>Sell Your Product</Link>
         </div>
       </div>
     );
