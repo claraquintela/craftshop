@@ -64,7 +64,7 @@ app.get("/allproducts", (req, res) => {
         return;
       }
 
-      products = products.slice(-12);
+      products = products.slice(-12).reverse();
       res.send(JSON.stringify(products));
     });
 });
@@ -82,9 +82,12 @@ app.post("/reviews", upload.none(), (req, res) => {
     });
 });
 
-app.post("/signup", upload.none(), (req, res) => {
+app.post("/signup", upload.single("img"), (req, res) => {
   let name = req.body.username;
   let pwd = req.body.password;
+  let location = req.body.location;
+  let file = req.file;
+  let imgPath = "/uploads/" + file.filename;
   dbo.collection("users").findOne(
     {
       username: name
@@ -109,7 +112,9 @@ app.post("/signup", upload.none(), (req, res) => {
       if (user === null) {
         dbo.collection("users").insertOne({
           username: name,
-          password: pwd
+          password: pwd,
+          location: location,
+          image: imgPath
         });
         let sessionId = generateId();
         sessions[sessionId] = name;
