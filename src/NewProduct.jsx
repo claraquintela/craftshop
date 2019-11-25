@@ -131,11 +131,13 @@ class UnconnectedNewProduct extends Component {
               />
             )}
           </div>
-          <div className="button">
+          <div>
             <input type="file" onChange={this.imgHandler} />
           </div>
-          <div className="button">
-            <button onClick={this.submitHandler}>Submit</button>
+          <div>
+            <button onClick={this.submitHandler} className="button">
+              Submit
+            </button>
           </div>
         </div>
       </div>

@@ -103,11 +103,11 @@ class UnconnectedSignup extends Component {
                 />
               )}
             </div>
-            <div>
+            <div className="add-photo-text">
               Add a photo of yourself here:
               <input type="file" onChange={this.userImgHandler} />
+              <input type="submit" className="signup-button" />
             </div>
-            <input type="submit" className="signup-button" />
 
             <Link className="link" to="/login">
               <div>Already have an account? Click here to log in</div>

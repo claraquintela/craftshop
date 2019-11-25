@@ -76,7 +76,11 @@ class UnconnectedItemDescription extends Component {
                   height="500px"
                   width="500px"
                 />
-                <input type="submit" value="submit your review" />
+                <input
+                  type="submit"
+                  value="submit your review"
+                  className="button"
+                />
               </form>
             </div>
           </div>
@@ -107,45 +111,46 @@ class UnconnectedItemDescription extends Component {
 
   render() {
     return (
-      <div className="box">
-        <div className="container">
-          <div>
+      <div className="centerDesc">
+        <div className="box">
+          <div className="container">
             <img src={this.props.item.image} className="item-image" />
-          </div>
-          <div className="product-description">
-            <h3>{this.props.item.title}</h3>
-            <div>
-              <b>Description of product: </b>
-              {this.props.item.description}
-            </div>
-            <div>
-              <b>Price: </b>
-              {Number(this.props.item.price)}$
-            </div>
-            <div>
-              <b>Remaining: </b>
-              {Number(this.props.item.quantity)}
-            </div>
 
-            <div>
-              <b>Seller: </b>
-              <Link to={"/userPage/" + this.props.user._id}>
-                {this.props.user.username}
-              </Link>
+            <div className="product-description">
+              <h3>{this.props.item.title}</h3>
+              <div>
+                <b>Description of product: </b>
+                {this.props.item.description}
+              </div>
+              <div>
+                <b>Price: </b>
+                {Number(this.props.item.price)}$
+              </div>
+              <div>
+                <b>Remaining: </b>
+                {Number(this.props.item.quantity)}
+              </div>
+
+              <div>
+                <b>Seller: </b>
+                <Link to={"/userPage/" + this.props.user._id}>
+                  {this.props.user.username}
+                </Link>
+              </div>
+              <div>
+                <b>Location: </b>
+                {this.props.item.location}
+              </div>
+              <form onSubmit={this.submitHandler}>
+                <input type="submit" value="add to cart" className="button" />
+              </form>
             </div>
             <div>
-              <b>Location: </b>
-              {this.props.item.location}
+              <button onClick={this.toggleReviewDisplay} className="button">
+                Click here to check out other customer's reviews!
+              </button>
+              {this.state.displayReviews ? this.displayReviews() : null}
             </div>
-            <form onSubmit={this.submitHandler}>
-              <input type="submit" value="add to cart" />
-            </form>
-          </div>
-          <div>
-            <button onClick={this.toggleReviewDisplay}>
-              Click here to check out other customer's reviews!
-            </button>
-            {this.state.displayReviews ? this.displayReviews() : null}
           </div>
         </div>
       </div>

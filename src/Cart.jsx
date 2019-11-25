@@ -46,7 +46,7 @@ class UnconnectedCart extends Component {
           ))}
           <div>
             <div className="total">total:{cartTotal + "$"}</div>
-            <div className="button">
+            <div>
               <form onSubmit="handleCheckout">
                 <input type="submit" value="Proceed to checkout" />
               </form>
