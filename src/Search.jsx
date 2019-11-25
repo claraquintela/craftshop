@@ -77,7 +77,7 @@ class UnconnectedSearch extends Component {
     }
     {
       return (
-        <div>
+        <div className="advanced-search">
           <div>
             Minimum price
             <input
@@ -128,7 +128,10 @@ class UnconnectedSearch extends Component {
         </form>
         <div>
           {this.displayAdvancedSearch()}
-          <button onClick={this.toggleAdvancedSearch} className="search-button">
+          <button
+            onClick={this.toggleAdvancedSearch}
+            className="search-advanced"
+          >
             Advanced Search
           </button>
         </div>

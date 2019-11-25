@@ -13,10 +13,11 @@
 
 }
 
-/* .container {
-    display: inline-flex;
+.centerDesc {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-} */
+}
 
 .container div {
     margin: 5px;
