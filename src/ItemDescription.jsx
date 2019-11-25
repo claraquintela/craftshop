@@ -40,6 +40,7 @@ class UnconnectedItemDescription extends Component {
       type: "addedToCart",
       added: this.props.item
     });
+    return;
   };
   toggleReviewDisplay = () => {
     let disp = this.state.displayReviews;

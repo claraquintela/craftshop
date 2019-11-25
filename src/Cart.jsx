@@ -30,7 +30,7 @@ class UnconnectedCart extends Component {
           {this.props.cart.map((items, index) => (
             <div className="sub-container-cart">
               <div className="cart-item-text">
-                {items.title} {parseInt(items.price) + "$"}{" "}
+                {items.title} {parseInt(items.price) + "$"}
                 <form
                   onSubmit={e => {
                     e.preventDefault();
