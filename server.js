@@ -64,7 +64,7 @@ app.get("/allproducts", (req, res) => {
         return;
       }
 
-      products = products.slice(-12).reverse();
+      products = products.slice().reverse();
       res.send(JSON.stringify(products));
     });
 });
