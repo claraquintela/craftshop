@@ -38,13 +38,10 @@ class UnconnectedItemDescription extends Component {
     });
   };
   toggleReviewDisplay = () => {
-    let disp = this.state.displayReviews;
-    this.setState({ displayReview: !disp });
+    console.log("toggleReviewDisplay hit");
+    this.setState({ displayReviews: !this.state.displayReviews });
   };
-  displayReview = () => {
-    if (!this.state.displayReviews) {
-      return null;
-    }
+  displayReviews = () => {
     {
       return (
         <div>
@@ -52,16 +49,31 @@ class UnconnectedItemDescription extends Component {
             <div>
               Reviews of this item:
               <ul>
-                {this.state.relevantReviews.map(item => {
+                {this.state.relevantReviews.map(review => {
                   return (
                     <li>
-                      {relevantReview.review}
-                      this review was submitted by:
-                      {relevantReview.reviewerId}
+                      <div>{review.review}</div>
+                      <div>
+                        this review was submitted by:
+                        {" " + review.reviewerId}
+                      </div>
                     </li>
                   );
                 })}
               </ul>
+            </div>
+            <div className="review">
+              Want to review this item? Do it here!
+              <form onSubmit={this.submitReview}>
+                <input
+                  type="text"
+                  onChange={this.reviewHandler}
+                  value={this.state.review}
+                  height="500px"
+                  width="500px"
+                />
+                <input type="submit" value="submit your review" />
+              </form>
             </div>
           </div>
         </div>
@@ -91,61 +103,47 @@ class UnconnectedItemDescription extends Component {
 
   render() {
     return (
-      <div>
-        <div className="box">
-          <div className="container">
-            <div>
-              <img src={this.props.item.image} className="item-image" />
-            </div>
-            <div className="product-description">
-              <h3>{this.props.item.title}</h3>
-              <div>
-                <b>Description of product: </b>
-                {this.props.item.description}
-              </div>
-              <div>
-                <b>Price: </b>
-                {Number(this.props.item.price)}$
-              </div>
-              <div>
-                <b>Remaining: </b>
-                {Number(this.props.item.quantity)}
-              </div>
-
-              <div>
-                <b>Seller: </b>
-                <Link to={"/userPage/" + this.props.user._id}>
-                  {this.props.user.username}
-                </Link>
-              </div>
-              <div>
-                <b>Location: </b>
-                {this.props.item.location}
-              </div>
-              <form onSubmit={this.submitHandler}>
-                <input type="submit" value="add to cart" />
-              </form>
-            </div>
-          </div>
-        </div>
-        <div className="review">
+      <div className="box">
+        <div className="container">
           <div>
-            <b>Item Reviews: </b>
-            {this.props.item.reviews}
+            <img src={this.props.item.image} className="item-image" />
           </div>
-          Want to review this item? Do it here!
-          <form onSubmit={this.submitReview}>
-            <input
-              type="text"
-              onChange={this.reviewHandler}
-              value={this.state.review}
-              height="500px"
-              width="500px"
-            />
-            <input type="submit" value="submit your review" />
-          </form>
+          <div className="product-description">
+            <h3>{this.props.item.title}</h3>
+            <div>
+              <b>Description of product: </b>
+              {this.props.item.description}
+            </div>
+            <div>
+              <b>Price: </b>
+              {Number(this.props.item.price)}$
+            </div>
+            <div>
+              <b>Remaining: </b>
+              {Number(this.props.item.quantity)}
+            </div>
+
+            <div>
+              <b>Seller: </b>
+              <Link to={"/userPage/" + this.props.user._id}>
+                {this.props.user.username}
+              </Link>
+            </div>
+            <div>
+              <b>Location: </b>
+              {this.props.item.location}
+            </div>
+            <form onSubmit={this.submitHandler}>
+              <input type="submit" value="add to cart" />
+            </form>
+          </div>
+          <div>
+            <button onClick={this.toggleReviewDisplay}>
+              Click here to check out other customer's reviews!
+            </button>
+            {this.state.displayReviews ? this.displayReviews() : null}
+          </div>
         </div>
-        <div>{this.toggleReviewDisplay}</div>
       </div>
     );
   }
