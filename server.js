@@ -84,11 +84,13 @@ app.post("/reviews", upload.none(), (req, res) => {
 });
 
 app.post("/signup", upload.single("img"), (req, res) => {
+  console.log("Signup are you working?");
   let name = req.body.username;
   let pwd = req.body.password;
   let location = req.body.location;
   let file = req.file;
   let imgPath = "/uploads/" + file.filename;
+  console.log("backend image", imgPath);
   dbo.collection("users").findOne(
     {
       username: name

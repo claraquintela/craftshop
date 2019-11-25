@@ -24,10 +24,12 @@ class UnconnectedSignup extends Component {
     this.setState({ location: event.target.value });
   };
   userImgHandler = event => {
+    console.log("image handler", event.target.files[0]);
     this.setState({ image: event.target.files[0] });
   };
   signupSubmitHandler = async event => {
     event.preventDefault();
+    console.log("this.state.image", this.state.image);
     let data = new FormData();
 
     data.append("username", this.state.username);
@@ -39,7 +41,9 @@ class UnconnectedSignup extends Component {
       body: data,
       credentials: "include"
     });
+    console.log("Signup response", response);
     let responseBody = await response.text();
+    console.log("Signup responseBody", responseBody);
     let body = JSON.parse(responseBody);
     console.log("SIGNNNNUP BODY", body);
     if (!body.success) {
