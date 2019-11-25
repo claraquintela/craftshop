@@ -15,12 +15,14 @@ class UnconnectedItemDescription extends Component {
   }
   componentDidMount = async () => {
     let data = new FormData();
-    data.append("ItemId", this.props.item._id);
+    console.log("item Id", this.props.item._id);
+    data.append("itemId", this.props.item._id);
     let response = await fetch("/reviews", { method: "POST", body: data });
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
-    console.log("reviews", parsed);
-    this.setState(this.state.relevantReviews.concat(parsed));
+    console.log("parsed", parsed);
+    this.setState({ relevantReviews: relevantReviews.concat(parsed) });
+    console.log("relevant reviews", this.state.relevantReviews);
     return;
   };
   reviewHandler = evt => {
