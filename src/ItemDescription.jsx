@@ -32,6 +32,10 @@ class UnconnectedItemDescription extends Component {
   };
   submitHandler = evt => {
     evt.preventDefault();
+    if (this.props.username === undefined) {
+      alert("You must be logged in to buy items");
+      return <Login />;
+    }
     this.props.dispatch({
       type: "addedToCart",
       added: this.props.item

@@ -10,7 +10,12 @@ class UnconnectedTopBar extends Component {
     this.props.dispatch({ type: "logout" });
     alert("You have logged out. Come back again now!");
   };
-
+  usernameId = () => {
+    let userId = this.props.users.find(user => {
+      return this.props.username === user.username;
+    });
+    return userId;
+  };
   notLoggedIn = () => {
     return (
       <div className="topbar-right">
@@ -43,16 +48,22 @@ class UnconnectedTopBar extends Component {
   };
 
   loggedIn = () => {
+    let chosenUser = this.usernameId();
     return (
       <div className="topbar-right">
         <div>
-          <img
-            src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
-            height="50px"
-            className="icon"
-            aria-label="login"
-          />
-          <div className="topbar-right-text">Hello, {this.props.username} </div>
+          <Link className="link" to={"/userPage/" + chosenUser._id}>
+            <img
+              src="http://pixsector.com/cache/94bed8d5/av3cbfdc7ee86dab9a41d.png"
+              height="50px"
+              className="icon"
+              aria-label="login"
+            />
+
+            <div className="topbar-right-text">
+              Hello, {this.props.username}{" "}
+            </div>
+          </Link>
         </div>
         <Link className="link" to="/cart">
           <img
@@ -103,7 +114,8 @@ class UnconnectedTopBar extends Component {
 let mapStateToProps = state => {
   console.log("STATE OF LOG OUT", state);
   return {
-    username: state.username
+    username: state.username,
+    users: state.users
   };
 };
 

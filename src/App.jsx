@@ -45,6 +45,7 @@ class UnconnectedApp extends Component {
       return <NewProduct />;
     }
     {
+      alert("Login to add a new product!");
       return <Login />;
     }
   };
@@ -53,6 +54,7 @@ class UnconnectedApp extends Component {
       return <Cart />;
     }
     {
+      alert("You need to login or sign up before accessing your cart!");
       return <Login />;
     }
   };
