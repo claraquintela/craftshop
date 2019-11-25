@@ -9,6 +9,8 @@ class UnconnectedSignup extends Component {
     this.state = {
       username: "",
       password: "",
+      location: "",
+      image: null,
       redirect: false
     };
   }
@@ -18,26 +20,34 @@ class UnconnectedSignup extends Component {
   handlePasswordChange = event => {
     this.setState({ password: event.target.value });
   };
+  handleUserLocation = event => {
+    this.setState({ location: event.target.value });
+  };
+  userImgHandler = event => {
+    this.setState({ image: event.target.files[0] });
+  };
   signupSubmitHandler = async event => {
     event.preventDefault();
     let data = new FormData();
-   
+
     data.append("username", this.state.username);
     data.append("password", this.state.password);
+    data.append("location", this.state.location);
+    data.append("image", this.state.image);
     let response = await fetch("/signup", {
       method: "POST",
       body: data
     });
     let responseBody = await response.text();
-    
+
     let body = JSON.parse(responseBody);
-   
+    console.log("SIGNNNNUP BODY", body);
     if (!body.success) {
       alert("Signup failed! This crafty username is taken, choose another!");
       return;
     }
     alert("Signup is successful! Welcome to CraftyPeople!!");
-    this.setState({ username: "", password: "" });
+    this.setState({ username: "", password: "", location: "", image: null });
     this.props.dispatch({
       type: "login-success",
       username: this.state.username
@@ -55,7 +65,7 @@ class UnconnectedSignup extends Component {
         <div>
           <form onSubmit={this.signupSubmitHandler} className="signup">
             <div className="signup-child">
-              Username
+              Choose your Username:
               <input
                 type="text"
                 onChange={this.handleUsernameChange}
@@ -64,7 +74,7 @@ class UnconnectedSignup extends Component {
               />
             </div>
             <div className="signup-child">
-              Password
+              Choose a Password:
               <input
                 type="password"
                 onChange={this.handlePasswordChange}
@@ -72,7 +82,30 @@ class UnconnectedSignup extends Component {
                 className="signup-field"
               />
             </div>
+            <div className="signup-child">
+              Tell us, where you're from:
+              <input
+                type="text"
+                onChange={this.handleUserLocation}
+                value={this.state.location}
+                className="signup-field"
+              />
+            </div>
+            <div className="signup-child">
+              {this.state.image && (
+                <img
+                  src={window.URL.createObjectURL(this.state.image)}
+                  className="image-preview"
+                />
+              )}
+            </div>
+            <div className="signup-child">
+              {" "}
+              Add a photo of yourself here:
+              <input type="file" onChange={this.userImgHandler} />
+            </div>
             <input type="submit" className="signup-button" />
+
             <Link className="link" to="/login">
               <div>Already have an account? Click here to log in</div>
             </Link>
