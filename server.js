@@ -254,8 +254,7 @@ app.post("/new-product", upload.single("img"), (req, res) => {
     username: username,
     price: price,
     title: title,
-    quantity: quantity,
-    username: username
+    quantity: quantity
   });
   res.send(
     JSON.stringify({

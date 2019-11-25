@@ -35,7 +35,7 @@ class UnconnectedSignup extends Component {
     data.append("username", this.state.username);
     data.append("password", this.state.password);
     data.append("location", this.state.location);
-    data.append("image", this.state.image);
+    data.append("file", this.state.image);
     let response = await fetch("/signup", {
       method: "POST",
       body: data,
