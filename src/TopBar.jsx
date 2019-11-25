@@ -59,8 +59,11 @@ class UnconnectedTopBar extends Component {
               className="icon"
               aria-label="login"
             />
+
+            <div className="topbar-right-text">
+              Hello, {this.props.username}{" "}
+            </div>
           </Link>
-          <div className="topbar-right-text">Hello, {this.props.username} </div>
         </div>
         <Link className="link" to="/cart">
           <img
