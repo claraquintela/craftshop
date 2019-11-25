@@ -36,11 +36,13 @@ class UnconnectedItemDescription extends Component {
       alert("You must be logged in to buy items");
       return <Login />;
     }
-    this.props.dispatch({
-      type: "addedToCart",
-      added: this.props.item
-    });
-    return;
+    {
+      this.props.dispatch({
+        type: "addedToCart",
+        added: this.props.item
+      });
+      return;
+    }
   };
   toggleReviewDisplay = () => {
     let disp = this.state.displayReviews;
