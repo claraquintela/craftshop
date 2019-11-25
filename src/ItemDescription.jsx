@@ -21,7 +21,9 @@ class UnconnectedItemDescription extends Component {
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     console.log("parsed", parsed);
-    this.setState({ relevantReviews: relevantReviews.concat(parsed) });
+    this.setState({
+      relevantReviews: parsed
+    });
     console.log("relevant reviews", this.state.relevantReviews);
     return;
   };
