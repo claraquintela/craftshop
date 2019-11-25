@@ -35,7 +35,7 @@ class UnconnectedSignup extends Component {
     data.append("username", this.state.username);
     data.append("password", this.state.password);
     data.append("location", this.state.location);
-    data.append("file", this.state.image);
+    data.append("image", this.state.image);
     let response = await fetch("/signup", {
       method: "POST",
       body: data,
@@ -103,7 +103,7 @@ class UnconnectedSignup extends Component {
                 />
               )}
             </div>
-            <div className="signup-child">
+            <div>
               Add a photo of yourself here:
               <input type="file" onChange={this.userImgHandler} />
             </div>

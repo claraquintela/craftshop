@@ -122,9 +122,11 @@ app.post("/signup", upload.single("img"), (req, res) => {
         let sessionId = generateId();
         sessions[sessionId] = name;
         res.cookie("sid", sessionId);
-        res.json({
-          success: true
-        });
+        res.json(
+          JSON.stringify({
+            success: true
+          })
+        );
         return;
       }
     }
