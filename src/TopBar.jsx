@@ -101,7 +101,7 @@ class UnconnectedTopBar extends Component {
 }
 
 let mapStateToProps = state => {
-  console.log("STATE OG LOG OUT", state);
+  console.log("STATE OF LOG OUT", state);
   return {
     username: state.username
   };

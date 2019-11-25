@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 class UnconnectedUsers extends Component {
   render() {
-  
     return (
       <div>
         <div>
@@ -43,6 +42,7 @@ class UnconnectedUsers extends Component {
 }
 
 let mapStateToProps = st => {
+  console.log("Users page", st);
   return {
     products: st.products,
     reviews: st.reviews,

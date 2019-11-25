@@ -4,47 +4,51 @@ import "./newproduct.css";
 
 class UnconnectedNewProduct extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      
-    }
+      title: "",
+      price: "",
+      location: "",
+      description: "",
+      img: null,
+      redirect: false
+    };
   }
   titleHandler = evt => {
-    this.props.dispatch({ type: "new-title", title: evt.target.value });
+    this.setState({ title: evt.target.value });
   };
   priceHandler = evt => {
-    this.props.dispatch({ type: "new-price", price: evt.target.value });
+    this.setState({ price: evt.target.value });
   };
   descriptionHandler = evt => {
-    this.props.dispatch({
-      type: "new-description",
+    this.setState({
       description: evt.target.value
     });
   };
   locationHandler = evt => {
-    this.props.dispatch({
-      type: "new-location",
+    this.setState({
       location: evt.target.value
     });
   };
   quantityHandler = evt => {
-    this.props.dispatch({ type: "new-quantity", quantity: evt.target.value });
+    this.setState({ quantity: evt.target.value });
   };
   imgHandler = evt => {
-    this.props.dispatch({ type: "new-img", img: evt.target.files[0] });
+    this.setState({ img: evt.target.files[0] });
   };
   submitHandler = async evt => {
     evt.preventDefault();
-    if (this.props.img === undefined) {
+    if (this.state.img === undefined) {
       alert("Please add photo to sell your product");
     }
     let data = new FormData();
-    data.append("title", this.props.title);
-    data.append("price", this.props.price);
-    data.append("description", this.props.description);
-    data.append("location", this.props.location);
-    data.append("img", this.props.img);
-    data.append("quantity", this.props.quantity);
+    data.append("title", this.state.title);
+    data.append("price", this.state.price);
+    data.append("description", this.state.description);
+    data.append("location", this.state.location);
+    data.append("img", this.state.img);
+    data.append("quantity", this.state.quantity);
+    data.append("username", this.props.username);
     let newResponse = await fetch("/new-product", {
       method: "POST",
       body: data,
@@ -67,6 +71,7 @@ class UnconnectedNewProduct extends Component {
     });
     this.props.dispatch({ type: "newproduct-success" });
   };
+
   render() {
     return (
       <div className="container">
@@ -82,7 +87,7 @@ class UnconnectedNewProduct extends Component {
               <input
                 type="text"
                 onChange={this.titleHandler}
-                value={this.props.title}
+                value={this.state.title}
               />
             </div>
             <div>
@@ -90,7 +95,7 @@ class UnconnectedNewProduct extends Component {
               <input
                 type="number"
                 onChange={this.priceHandler}
-                value={this.props.price}
+                value={this.state.price}
               />
             </div>
             <div>
@@ -98,7 +103,7 @@ class UnconnectedNewProduct extends Component {
               <input
                 type="text"
                 onChange={this.descriptionHandler}
-                value={this.props.description}
+                value={this.state.description}
               />
             </div>
             <div>
@@ -106,7 +111,7 @@ class UnconnectedNewProduct extends Component {
               <input
                 type="text"
                 onChange={this.locationHandler}
-                value={this.props.location}
+                value={this.state.location}
               />
             </div>
             <div>
@@ -114,14 +119,14 @@ class UnconnectedNewProduct extends Component {
               <input
                 type="number"
                 onChange={this.quantityHandler}
-                value={this.props.quantity}
+                value={this.state.quantity}
               />
             </div>
           </form>
           <div className="image-container">
-            {this.props.img && (
+            {this.state.img && (
               <img
-                src={window.URL.createObjectURL(this.props.img)}
+                src={window.URL.createObjectURL(this.state.img)}
                 className="image-preview"
               />
             )}
@@ -138,13 +143,10 @@ class UnconnectedNewProduct extends Component {
   }
 }
 let mapStateToProps = st => {
+  console.log("LOOKING FOR THE STATE*******", st);
   return {
-    title: st.title,
-    price: st.price,
-    location: st.location,
-    description: st.description,
-    img: st.img,
-    quantity: st.quantity
+    newProductUpload: st.newProductUpload,
+    username: ""
   };
 };
 let NewProduct = connect(mapStateToProps)(UnconnectedNewProduct);

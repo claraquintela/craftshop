@@ -233,13 +233,12 @@ app.post("/search", upload.none(), (req, res) => {
 });
 
 app.post("/new-product", upload.single("img"), (req, res) => {
-  let sessionId = req.cookies.sid;
-  let username = sessions[sessionId];
   let title = req.body.title;
   let description = req.body.description;
   let price = req.body.price;
   let quantity = req.body.quantity;
   let file = req.file;
+  let username = req.body.username;
   let imgPath = "/uploads/" + file.filename;
   dbo.collection("products").insertOne({
     description: description,
@@ -247,7 +246,8 @@ app.post("/new-product", upload.single("img"), (req, res) => {
     username: username,
     price: price,
     title: title,
-    quantity: quantity
+    quantity: quantity,
+    username: username
   });
   res.send(
     JSON.stringify({

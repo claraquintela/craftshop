@@ -19,12 +19,12 @@ class UnconnectedApp extends Component {
     let response = await fetch("/allproducts");
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
-  
+
     this.props.dispatch({ type: "set-products", products: parsed });
     let userResponse = await fetch("/allusers");
     let userResponseBody = await userResponse.text();
     let userParsed = JSON.parse(userResponseBody);
-  
+
     this.props.dispatch({ type: "set-users", users: userParsed.user });
   };
   renderMainPage = () => {
@@ -41,7 +41,12 @@ class UnconnectedApp extends Component {
     return <Login />;
   };
   renderNewProduct = () => {
-    return <NewProduct />;
+    if (this.props.login) {
+      return <NewProduct />;
+    }
+    {
+      return <Login />;
+    }
   };
   renderAddToCart = () => {
     return <Cart />;
@@ -49,15 +54,13 @@ class UnconnectedApp extends Component {
   renderItemDescriptionPage = routerData => {
     let itemId = routerData.match.params._id;
     let item = this.props.products.find(item => {
-      
       return itemId === item._id;
     });
-   
 
     let seller = this.props.users.find(user => {
       return user.username === item.username;
     });
-   
+
     return <ItemDescription item={item} user={seller} />;
   };
   renderUserPage = routerData => {
@@ -65,11 +68,11 @@ class UnconnectedApp extends Component {
     let user = this.props.users.find(user => {
       return user._id === userId;
     });
-   
+
     let items = this.props.products.filter(item => {
       return item.username === user.username;
     });
-   
+
     return <Users user={user} items={items} />;
   };
 
@@ -106,7 +109,6 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
-
   return {
     login: state.login,
     products: state.products,

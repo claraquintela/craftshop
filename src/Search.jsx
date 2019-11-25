@@ -36,17 +36,17 @@ class UnconnectedSearch extends Component {
     data.append("maxPrice", this.state.maxPrice);
     data.append("inStock", this.state.inStock);
     data.append("quantity", this.state.quantity);
-   
+
     let response = await fetch("/search", {
       method: "POST",
       body: data,
       credentials: "include"
     });
-  
+
     let responseBody = await response.text();
-   
+
     let parsed = JSON.parse(responseBody);
-   
+
     this.props.dispatch({
       type: "search-results",
       searchResults: parsed.items
@@ -112,7 +112,6 @@ class UnconnectedSearch extends Component {
     }
   };
   render = () => {
-    
     return (
       <div className="topbar-search">
         <form onSubmit={this.handleSubmit}>
