@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import "./app.css";
 import "./itemdescription.css";
+import Cart from "./Cart.jsx";
 
 class UnconnectedItemDescription extends Component {
   constructor(props) {
@@ -32,15 +33,18 @@ class UnconnectedItemDescription extends Component {
   };
   submitHandler = evt => {
     evt.preventDefault();
-    if (this.props.username === undefined) {
+    if (this.props.username === "") {
       alert("You must be logged in to buy items");
-      return <Login />;
+      this.props.history.push("/login");
+      return;
     }
     {
       this.props.dispatch({
         type: "addedToCart",
         added: this.props.item
       });
+      alert("You have successfully added item to cart");
+      this.props.history.push("/cart");
       return;
     }
   };
@@ -163,5 +167,7 @@ let mapStateToProps = state => {
     username: state.username
   };
 };
-let ItemDescription = connect(mapStateToProps)(UnconnectedItemDescription);
+let ItemDescription = connect(mapStateToProps)(
+  withRouter(UnconnectedItemDescription)
+);
 export default ItemDescription;
