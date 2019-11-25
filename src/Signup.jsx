@@ -10,7 +10,7 @@ class UnconnectedSignup extends Component {
       username: "",
       password: "",
       location: "",
-      image: null,
+      img: null,
       redirect: false
     };
   }
@@ -25,7 +25,7 @@ class UnconnectedSignup extends Component {
   };
   userImgHandler = event => {
     console.log("image handler", event.target.files[0]);
-    this.setState({ image: event.target.files[0] });
+    this.setState({ img: event.target.files[0] });
   };
   signupSubmitHandler = async event => {
     event.preventDefault();
@@ -35,7 +35,7 @@ class UnconnectedSignup extends Component {
     data.append("username", this.state.username);
     data.append("password", this.state.password);
     data.append("location", this.state.location);
-    data.append("image", this.state.image);
+    data.append("img", this.state.img);
     let response = await fetch("/signup", {
       method: "POST",
       body: data,
@@ -51,7 +51,7 @@ class UnconnectedSignup extends Component {
       return;
     }
     alert("Signup is successful! Welcome to CraftyPeople!!");
-    this.setState({ username: "", password: "", location: "", image: null });
+    this.setState({ username: "", password: "", location: "", img: null });
     this.props.dispatch({
       type: "login-success",
       username: this.state.username
@@ -96,9 +96,9 @@ class UnconnectedSignup extends Component {
               />
             </div>
             <div className="signup-child">
-              {this.state.image && (
+              {this.state.img && (
                 <img
-                  src={window.URL.createObjectURL(this.state.image)}
+                  src={window.URL.createObjectURL(this.state.img)}
                   className="image-preview"
                 />
               )}
