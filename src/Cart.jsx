@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./cart.css";
+import { appendFile } from "fs";
+import StripeCheckout from "react-stripe-checkout";
 
 class UnconnectedCart extends Component {
   deleteItem = index => {
@@ -13,7 +15,6 @@ class UnconnectedCart extends Component {
       cart: filtered
     });
   };
-
   render = () => {
     let cartTotal = 0;
     this.props.cart.forEach(items => {
@@ -50,6 +51,11 @@ class UnconnectedCart extends Component {
               <form onSubmit="handleCheckout">
                 <input type="submit" value="Proceed to checkout" />
               </form>
+              <StripeCheckout
+                token={this.onToken}
+                stripeKey="pk_test_RxljPF1snPezy2PVjLRSLvV500o8Ykg7z4"
+              />
+              ) }
             </div>
           </div>
         </div>
